@@ -11,6 +11,8 @@ import Dashboard from './Dashboard/dashboard';
 import Organization from './Organization/organization';
 import Profile from './Profile/profile';
 import Recent from './Recent/recent';
+import LogIn from './LogIn/login';
+import SignUp from './SignUp/signup';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/organization" element={<Organization />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/recent" element={<Recent />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/signup" element={<SignUp/>} />
         </Routes>
       </div>
     </Router>
