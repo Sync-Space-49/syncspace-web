@@ -31,25 +31,25 @@ function SignUp() {
         <form className="flex flex-col space-y-2">
             <div className="flex flex-col">
                 <label htmlFor="username">Username</label>
-                <input type="text" name="username" id="username" className="rounded-s" />
+                <input type="text" name="username" id="username" className="rounded" />
             </div>
 
             <div className="flex flex-col">
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email" className="rounded-s" />
+                <input type="email" name="email" id="email" className="rounded" />
             </div>
 
             <div className="flex flex-col">
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" id="password" className="rounded-s" />
+                <input type="password" name="password" id="password" className="rounded" />
             </div>
             
             <div className="flex flex-col">
                 <label htmlFor="repeat-password">Repeat Password</label>
-                <input type="password" name="repeat-password" id="repeat-password" className="rounded-s" />
+                <input type="password" name="repeat-password" id="repeat-password" className="rounded" />
             </div>
             
-            <button type="submit" className="bg-slate-700 w-24 rounded-s">Sign Up</button>
+            <button type="submit" className="bg-slate-700 w-24 rounded">Sign Up</button>
         </form>
         <div className="text-center space-y-4">
             <h2>or</h2>
