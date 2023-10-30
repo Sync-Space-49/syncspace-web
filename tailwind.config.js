@@ -13,6 +13,7 @@ module.exports = {
         'tertiary' : '#1552a2',
         'blue' : '#49668c',
         'black' : '#0e151b',
+        'landing' : '#e6f0fc',
         'success' : '#53a653',
         'info' : '#94aac7',
         'danger' : '#c72337'

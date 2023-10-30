@@ -1,7 +1,22 @@
 import React from "react";
+import WAVE from './images/svgviewer-png-output.png'
+import SYNCFOOTER from './images/Sync-Footer.png'
+import APPSTORE from './images/download-on-the-app-store-apple-logo-svgrepo-com.svg'
+import SYNCMOBILE from './images/Sync-Mobile.png'
+import SYNCWEB from './images/Sync-Web.png'
+import SYNC from './images/SyncSpace-mint.png'
 
 function Landing() {
+
+    const styles = {
+        waves: {
+            backroundImage: `url(${WAVE})`,
+            backgroundRepeat: 'no-repeat'
+        }
+      }
+
   return (
+
     // Container
     <div>
 
@@ -10,8 +25,8 @@ function Landing() {
         */}
         <div className="bg-dark h-20 w-full flex justify-between">
         <div className="flex items-center p-4 ml-6">
-            <img className="text-center" src="../Nav/SyncSpace-mint.png"/>
-            <p className='p-3 items-center text-white'>SyncSpace</p>
+            <img style={{width: "60px", height: "60px"}} src={SYNC}/>
+            <p className='p-3 items-center text-white font-semibold text-xl'>SyncSpace</p>
         </div>
         <div className="flex items-center mr-6">
             {/* log in */}
@@ -20,36 +35,86 @@ function Landing() {
             <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Get Started</button>
         </div>
         </div>
-        <div>
-            {/* Move svg to body maybe */}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#253646" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,261.3C480,277,600,267,720,224C840,181,960,107,1080,80C1200,53,1320,75,1380,85.3L1440,96L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>
-        </div>
+
+        <div className="bg-dark h-20"></div>
 
         <div>
             {/* Body */}
+            <div style={{ backgroundImage: `url(${WAVE})`, backgroundRepeat: 'no-repeat', backgroundSize: 'contain'}} className="flex justify-between pb-20">
             <div>
-            <p>Visualize Your Goals and</p>
-            <p>Enhance with AI</p>
+                    <h1 className="font-semibold text-3xl pl-56 text-white">Elevate Your Workflow</h1>
+                    <p className="text-white pl-56 pt-5">Sync your ideas and empower your team's creativity.</p>
+                    <p className="text-white pl-56 pt-5">Get started today for free!</p>
+                    <div className="pl-52">
+                    <div className="flex">
+                        <div className="pt-5">
+                        <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Sign Up for Web</button>
+                        </div>
+                        <div>
+                            <img className="pb-20" style={{width: "120px", height: "200px"}} src={APPSTORE}/>
+                        </div>
+                    </div>
+                    <p className="text-dark text-3xl pt-20">Visualize Your Goals and</p>
+                    <p className="font-semibold text-4xl pt-5">Enhance with AI</p>
+                    </div>
+            </div>
+            <div className="pr-96">
+                <img style={{height: "550px"}} src={SYNCMOBILE}/>
+            </div>
             </div>
 
-            <div>
-                <h2>Optimize Team Productivity and Collaboration</h2>
-            </div>
-
-            {/* Tabs showcase */}
-            <div>
-                <div className="flex flex-col">
-                    <a className="font-semibold" href="#">&hearts; Organizations</a>
-                    <a className="font-semibold" href="#">&hearts; Boards</a>
-                    <a className="font-semibold" href="#">&hearts; Lists</a>
-                    <a className="font-semibold" href="#">&hearts; AI</a>
+            <div className="bg-landing pb-20">
+                <div className="flex justify-center text-dark">
+                    <h2 className="text-3xl font-semibold pt-20">Optimize Team Productivity and Collaboration</h2>
                 </div>
+
+                <div className="flex justify-between">
+
+                <div className="flex justify-start flex-col pl-56 pt-20 space-y-4">
+                    <div className="bg-white flex justify-between items-center shadow-md shadow-dark rounded" style={{width: "250px", height: "80px"}}>
+                        <div style={{height: "80px", width: "10px"}} className="bg-primary"></div>
+                        <a className="font-semibold text-lg pr-12" href="#">&hearts; Organizations</a>
+                    </div>
+                    <div className="flex justify-center items-center rounded" style={{width: "250px", height: "80px"}}>
+                        <a className="font-semibold text-lg" href="#">&hearts; Boards</a>
+                    </div>
+                    <div className="flex justify-center items-center rounded" style={{width: "250px", height: "80px"}}>
+                        <a className="font-semibold text-lg" href="#">&hearts; Lists</a>
+                    </div>
+                    <div className="flex justify-center items-center rounded" style={{width: "250px", height: "80px"}}>
+                        <a className="font-semibold text-lg" href="#">&hearts; AI</a>
+                    </div>
+                </div>
+
+                <div className="pt-20 pr-56">
+                    <div style={{width: "600px", height: "400px"}} className="bg-white shadow-md shadow-dark rounded flex flex-col items-center justify-center space-y-4">
+                        <div>
+                            <img style={{height: "200px", width: "450px"}} src={SYNCWEB}/>
+                        </div>
+                        <div style={{width: "450px"}}>
+                            <p className="">Organizations serve as the foundation that enables users to efficiently manage multiple boards within a unified and collaborative space. These organizations act as containers for boards, offering a structured environment where teams can oversee a range of projects, tasks, and objectives.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                </div>
+
             </div>
+
         </div>
 
         <div>
             {/* Footer */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#253646" fill-opacity="1" d="M0,96L60,85.3C120,75,240,53,360,64C480,75,600,117,720,138.7C840,160,960,160,1080,154.7C1200,149,1320,139,1380,133.3L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+            {/* <div style={{ backgroundImage: `url(${SYNCFOOTER})`, backgroundRepeat: 'no-repeat', backgroundSize: 'contain', width: "100%"}} className="">
+                <div>
+                    <p>ddhdh</p>
+                </div>
+            </div> */}
+            <div style={{ backgroundImage: `url(${SYNCFOOTER})`, backgroundRepeat: 'no-repeat', backgroundSize: 'contain'}} className="flex pb-20 w-full">
+            
+            </div>
+            
         </div>
 
     </div>
