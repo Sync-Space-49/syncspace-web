@@ -1,5 +1,7 @@
 import './App.css';
 
+import React from "react";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,6 +16,7 @@ import Profile from './Profile/profile';
 import Recent from './Recent/recent';
 import LogIn from './LogIn/login';
 import SignUp from './SignUp/signup';
+import LogOut from './LogOut/logout';
 
 function App() {
   return (
@@ -30,6 +33,7 @@ function App() {
           <Route path="/recent" element={<Recent />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<SignUp/>} />
+          <Route path="/logout" element={<LogOut/>} />
         </Routes>
       </div>
     </Router>

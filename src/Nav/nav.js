@@ -7,7 +7,7 @@ import {
       <nav className="flex nav align-top container mx-auto bg-dark h-16">
         <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
           <div className="flex flex-shrink-0 items-center">
-            <img className="h-8 w-auto" src="/SyncSpace-mint.png" alt="SyncSpace Mint" />
+            <img className="h-8 w-auto" src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-logo-100w.svg" alt="SyncSpace Mint" />
           </div>
           <div className="hidden sm:ml-6 sm:block">
             <div className="flex space-x-4">
@@ -17,6 +17,7 @@ import {
               <Link to="/profile" className="text-slate-300 hover:bg-slate-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Profile</Link>
               <Link to="/recent" className="text-slate-300 hover:bg-slate-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Recent</Link>
               <Link to="/login" className="text-slate-300 hover:bg-slate-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">LogIn</Link>
+              <Link to="/logout" className="text-slate-300 hover:bg-slate-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">LogOut</Link>
               <Link to="/signup" className="text-slate-300 hover:bg-slate-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">SignUp</Link>
             </div>
           </div>

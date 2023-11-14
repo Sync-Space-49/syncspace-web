@@ -24,7 +24,7 @@ function SignUp() {
 
     <div className="container mx-auto px-30 bg-gray-200 rounded-xl shadow border p-8 m-10 align-middle flex flex-col w-96">
         <div className="text-center space-y-4">
-            <img src="../Nav/SyncSpace-mint.png" alt="mint" />
+            <img src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-logo-100w.svg" alt="mint" />
             <h1>SyncSpace</h1>
             <h2>SignUp</h2>
         </div>
