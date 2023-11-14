@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
 import { createRoot } from 'react-dom/client';
 import { Auth0Provider } from '@auth0/auth0-react';
@@ -10,14 +8,17 @@ import { Auth0Provider } from '@auth0/auth0-react';
 const root = createRoot(document.getElementById('root'));
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_FRONTEND_CLIENT_ID;
-const direct = process.env.REACT_APP_REDIRECT_URI
+const serverAddress = process.env.REACT_APP_SERVER_ADDRESS;
+const secret = process.env.REACT_APP_AUTH0_FRONTEND_CLIENT_SECRET;
+const serverAudience = process.env.REACT_APP_SERVER_AUDIENCE;
 
 root.render(
 <Auth0Provider
     domain = {domain}
     clientId = {clientId}
     authorizationParams={{
-      redirect_uri: window.location.origin
+      redirect_uri: window.location.origin,
+      audience: {serverAudience}
     }}
   >
     <App />
