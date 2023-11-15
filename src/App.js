@@ -25,6 +25,7 @@ function App() {
   return (
     <Router>
       <Nav/>
+      {/* <Nav/> */}
       <div className="mainContainer">
         <Routes>
           <Route path="/landing" element={<Landing/>} />
