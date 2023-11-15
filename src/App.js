@@ -17,17 +17,20 @@ import Recent from './Recent/recent';
 import LogIn from './LogIn/login';
 import SignUp from './SignUp/signup';
 import LogOut from './LogOut/logout';
+import Redirect from './Redirect/redirect';
 
 function App() {
   return (
     <Router>
-      <Nav/>
+      <Redirect/>
+      {/* <Nav/> */}
       <div className="mainContainer">
         <Routes>
+          <Route path="/" element={<Redirect/>}/>
           <Route path="/landing" element={<Landing/>} />
           {/* I need to figure out how to make it seperate from when ur logged in using middleware maybe */}
           <Route path="*" element ={<Landing/>} />
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/organization" element={<Organization />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/recent" element={<Recent />} />
