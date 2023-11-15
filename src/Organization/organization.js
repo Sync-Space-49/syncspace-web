@@ -5,26 +5,26 @@ import { serverAddress } from "../index";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Organization = () => {
-  // const { getAccessTokenSilently, user } = useAuth0();
-  // const token = getAccessTokenSilently();
-  // const userID = user.sub;
-  // var url = `${serverAddress}/api/users/${userID}/organizations`
+  const { getAccessTokenSilently, user } = useAuth0();
+  const userID = user.sub;
+  var url = `${serverAddress}/api/users/${userID}/organizations`
   
-  // const getOrgs = () => {
-  //   axios.get(url, {
-  //     headers: {
-  //       'Authorization': `Bearer ${token}`
-  //   }
-  //   })
-  //     .then(res => {
-  //       console.log(res)
-  //     })
-  // }
+  const getOrgs = async () => {
+    let token = await getAccessTokenSilently();
+    axios.get(url, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+    }
+    })
+      .then(res => {
+        console.log(res)
+      })
+  }
   
   return (
     <div>
         <p>Organization</p>
-        {/* <button onClick={getOrgs} data-name="orgs">Get Orgs</button> */}
+        <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={getOrgs} data-name="orgs">Get Orgs</button>
     </div>
   );
 }
