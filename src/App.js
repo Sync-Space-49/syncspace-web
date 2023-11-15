@@ -14,22 +14,26 @@ import Dashboard from './Dashboard/dashboard';
 import Organization from './Organization/organization';
 import Profile from './Profile/profile';
 import Recent from './Recent/recent';
-import LogIn from './LogIn/login';
+import LogIn from './LoggedOut/loggedout';
 import SignUp from './SignUp/signup';
-import LogOut from './LogOut/logout';
-import Redirect from './Redirect/redirect';
+import LogOut from './LoggedIn/loggedin';
+import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
+  const { isAuthenticated } = useAuth0();
+
   return (
     <Router>
-      <Redirect/>
+      <Nav/>
       {/* <Nav/> */}
       <div className="mainContainer">
         <Routes>
-          <Route path="/" element={<Redirect/>}/>
           <Route path="/landing" element={<Landing/>} />
-          {/* I need to figure out how to make it seperate from when ur logged in using middleware maybe */}
           <Route path="*" element ={<Landing/>} />
+          {isAuthenticated 
+            ?           <Route path="/" element ={<Dashboard/>} />
+            :           <Route path="/" element ={<Landing/>} />
+          }
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/organization" element={<Organization />} />
           <Route path="/profile" element={<Profile />} />

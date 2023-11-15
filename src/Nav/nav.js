@@ -1,14 +1,9 @@
-import {
-    Link
-  } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import NavLoggedIn from '../NavLoggedIn/navloggedin';
-import NavLoggedOut from '../NavLoggedOut/navloggedout';
+import LoggedOut from "../LoggedOut/loggedout";
+import LoggedIn from "../LoggedIn/loggedin";
   
   function Nav() {
-    const { getAccessTokenSilently, isAuthenticated } = useAuth0();
-    getAccessTokenSilently();
-
+    const { isAuthenticated } = useAuth0();
     return (
       <nav className="flex nav align-top container mx-auto bg-dark h-16">
         <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
@@ -17,10 +12,7 @@ import NavLoggedOut from '../NavLoggedOut/navloggedout';
           </div>
           <div className="hidden sm:ml-6 sm:block">
             <div className="flex space-x-4">
-              {isAuthenticated
-                ? <NavLoggedIn/>
-                : <NavLoggedOut/>
-              }  
+              {isAuthenticated ? <LoggedIn/>: <LoggedOut/>}
             </div>
           </div>
         </div>
