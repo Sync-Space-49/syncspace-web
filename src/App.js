@@ -31,8 +31,8 @@ function App() {
           <Route path="/landing" element={<Landing/>} />
           <Route path="*" element ={<Landing/>} />
           {isAuthenticated 
-            ?           <Route path="/dashboard" element ={<Dashboard/>} />
-            :           <Route path="/landing" element ={<Landing/>} />
+            ?           <Route path="/" element ={<Dashboard/>} />
+            :           <Route path="/" element ={<Landing/>} />
           }
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/organization" element={<Organization />} />
