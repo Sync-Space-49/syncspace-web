@@ -1,22 +1,265 @@
-// import { useAuth0 } from "@auth0/auth0-react";
-// import React from "react";
-
-// const DashboardLogIn = () => {
-//   const { loginWithRedirect } = useAuth0();
-
-//   return <button className="bg-primary w-24 rounded" onClick={() => loginWithRedirect()}>Log In</button>;
-// };
-
-// export default DashboardLogIn;
-
-import React from "react";
+import React, {useEffect, useState} from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { IoSettingsSharp } from "react-icons/io5";
+import SYNC from './images/SyncSpace-mint.png'
+import { serverAddress } from "../index";
+import axios from "axios";
 
 function Dashboard() {
+
+  const { logout } = useAuth0();
+
+  const [show, dashShow] = useState(true)
+  const [org, orgShow] = useState(false)
+  const [setting, settingShow] = useState(false)
+  var data = [];
+
+  const style = { color: "white" }
+
+  const { getAccessTokenSilently, user } = useAuth0();
+  const userID = user.sub;
+  var url = `${serverAddress}/api/users/${userID}/organizations`
+  
+
+  useEffect(()=> {
+    const getOrgs = async () => {
+      let token = await getAccessTokenSilently();
+      axios.get(url, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(res => {
+          data = res.data;
+          console.log(data)
+        })
+    }
+    getOrgs();
+  }, []);
+
   return (
-    <div>
-        <p>Dashboard</p>
+
+    // Container
+    <div className="flex">
+      {/* Left side navigation */}
+        <div className="w-1/5 h-screen bg-dark">
+
+          <div className="flex items-center space-x-2 p-4 border border-slate-400 border-t-0 border-l-0 border-r-0">
+            
+            <img style={{width: "50px", height: "50px"}} src={SYNC}/>
+            <div className="flex space-x-2">
+              <h1 className="text-white text-xl">SyncSpace</h1>
+              <h1 className="text-white font-semibold text-xl">Admin</h1>
+            </div>
+          
+          </div>
+
+          {/* Sidebar buttons */}
+          <div className="flex flex-col mt-2 space-y-2">
+
+
+            <div className="pl-6 pt-3 pb-4 border border-slate-400 border-l-0 border-r-0 border-t-0">
+              <button className="text-white">Navigation</button>
+            </div>
+
+            <div className="flex flex-col justify-between">
+
+            <div className="mb-96">
+
+            <div className="w-full h-8 flex items-center p-6 border border-dark border-l-0 border-r-0 hover:border-slate-400 hover:font-semibold">
+              <button className="text-white hover:text-primary" onClick={()=>{
+                dashShow(show);
+                orgShow(org);
+                settingShow(setting);
+                }}>Dashboard</button>
+            </div>
+
+            <div className="w-full h-8 flex items-center p-6 border border-dark border-l-0 border-r-0 hover:border-slate-400 hover:font-semibold">
+              <button className="text-white hover:text-primary" onClick={()=>{
+                dashShow(!show);
+                orgShow(!org);
+                settingShow(setting);
+                }}>Organizations</button>
+            </div>
+
+            <div className="w-full h-8 flex items-center p-6 border border-dark border-l-0 border-r-0 hover:border-slate-400 hover:font-semibold">
+              <button className="text-white hover:text-primary" onClick={()=>{
+                dashShow(!show);
+                orgShow(org);
+                settingShow(!setting);
+                }}>Profile</button>
+            </div>
+
+            <div className="w-full h-8 flex items-center p-6 border border-dark border-l-0 border-r-0 hover:border-slate-400 hover:font-semibold">
+              <button className="text-white hover:text-primary" onClick={()=>{
+                dashShow(!show);
+                orgShow(org);
+                settingShow(!setting);
+                }}>Recent</button>
+            </div>
+            
+          </div>
+          
+          {/* Log out */}
+          <div className="flex items-end w-full h-3/5 pb-4 pl-2">
+            <button className="text-dark font-semibold rounded-md mt-4 ml-4 p-2 bg-primary" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+              Log Out
+            </button>
+          </div>
+
+          </div>
+
+          </div>
+
+        </div>
+
+        {/* Admin Panel Content */}
+        <div className="w-4/5 h-screen bg-landing">
+
+          <div className="w-full h-20 bg-test flex justify-end">
+            <div className="flex bg-dark justify-end items-center space-x-4 p-6">
+              <p className="text-white">{user.name}</p>
+              <img className="rounded" style={{width: "50px", height: "50px"}} src={user.picture} alt={user.name}/>
+            </div>
+          </div>
+
+          {/* Dashboard */}
+          <div>
+            {
+              show?<div className="p-6 flex flex-col space-y-12">
+
+                <div className="space-y-2">
+                  <h1 className="text-dark text-3xl">Welcome {user.name}!</h1>
+                  <p className="text-dark">View and manage your organizations below.</p>
+                </div>
+
+                <div className="flex flex-wrap">
+
+                {/* Why arent you working I am going insane bruh */}
+                {/* {data ? (
+                  data.map((organization, i) => {
+                    return <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10" key={i}>
+                    <div>
+                    <img src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-logo-100w.svg" className="p-2"></img>
+                    </div>
+                    <div className="bg-test flex justify-between w-full p-2 items-center">
+                      <p className="text-white font-semibold">{organization}</p>
+                      <IoSettingsSharp style={style}/>
+                    </div>
+                  </div>
+                    //<SpecificOrganization org={organization} updateOrgList={updateOrgList} key={i} />;
+                  })
+                ) : (
+                  <h1 className="ion-padding">No organizations were found</h1>
+                )} */}
+
+                <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
+                  <div>
+                  <img style={{height: "100px", width: "100px"}} src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-logo-100w.svg" className="p-2"></img>
+                  </div>
+                  <div className="bg-test flex justify-between w-full p-2 items-center">
+                    <p className="text-white font-semibold">SyncSpace</p>
+                    <IoSettingsSharp style={style}/>
+                  </div>
+                </div>
+
+                <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
+                  <div>
+                  <img style={{height: "100px", width: "100px"}} src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-app-icon-royalblue-v1.png" className="p-2"></img>
+                  </div>
+                  <div className="bg-test flex justify-between w-full p-2 items-center">
+                    <p className="text-white font-semibold">Portfolio</p>
+                    <IoSettingsSharp style={style}/>
+                  </div>
+                </div>
+
+                <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
+                  <div>
+                  <img style={{height: "100px", width: "100px"}} src='https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-app-icon-deepblue-v1.png' className="p-2"></img>
+                  </div>
+                  <div className="bg-test flex justify-between w-full p-2 items-center">
+                    <p className="text-white font-semibold">My List</p>
+                    <IoSettingsSharp style={style}/>
+                  </div>
+                </div>
+
+                <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
+                  <div>
+                  <img style={{height: "100px", width: "100px"}} src="https://s3.us-east-1.wasabisys.com/sync-space/pfp/johnny-appleseed.png" className="p-2"></img>
+                  </div>
+                  <div className="bg-test flex justify-between w-full p-2 items-center">
+                    <p className="text-white font-semibold">Ideas</p>
+                    <IoSettingsSharp style={style}/>
+                  </div>
+                </div>
+
+                <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
+                  <div>
+                  <img style={{height: "100px", width: "100px"}} src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-app-icon-deepblue-v1.png" className="p-2"></img>
+                  </div>
+                  <div className="bg-test flex justify-between w-full p-2 items-center">
+                    <p className="text-white font-semibold">Class Project</p>
+                    <IoSettingsSharp style={style}/>
+                  </div>
+                </div>
+
+                <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
+                  <div>
+                  <img style={{height: "100px", width: "100px"}} src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-logo-100w.svg" className="p-2"></img>
+                  </div>
+                  <div className="bg-test flex justify-between w-full p-2 items-center">
+                    <p className="text-white font-semibold">Class Project v2</p>
+                    <IoSettingsSharp style={style}/>
+                  </div>
+                </div>
+
+                <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
+                  <div>
+                  <img style={{height: "100px", width: "100px"}} src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-logo-100w.svg" className="p-2"></img>
+                  </div>
+                  <div className="bg-test flex justify-between w-full p-2 items-center">
+                    <p className="text-white font-semibold">Personal Project</p>
+                    <IoSettingsSharp style={style}/>
+                  </div>
+                </div>
+
+                </div>
+
+
+              {/* Org Showcase */}
+                <div>
+                </div>
+
+              </div>:null
+            }
+          </div>
+
+          {/* Organizations */}
+          <div>
+            {
+              org?<p>testing</p>:null
+            }
+          </div>
+
+          {/* Settings */}
+          <div>
+            {
+              setting?<p>this is differentx</p>:null
+            }
+          </div>
+
+        </div>
         
-        <div className="bg-light w-24 rounded">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        {/* <div className="bg-light w-24 rounded">
           <p> Log In</p>
         </div>
         <div className="bg-dark w-24 rounded">
@@ -45,7 +288,7 @@ function Dashboard() {
         </div>
         <div className="bg-danger w-24 rounded">
           <p> Log In</p>
-      </div>
+      </div> */}
     </div>
   );
 }
