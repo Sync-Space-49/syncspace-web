@@ -20,21 +20,19 @@ function Landing() {
     // Container
     <div>
 
-        {/* Header 
-                I started styling this but the rest of the sections are just skeleton
-        */}
-        <div className="bg-dark h-20 w-full flex justify-between">
+        
+        {/* <div className="bg-dark h-20 w-full flex justify-between">
         <div className="flex items-center p-4 ml-6">
             <img style={{width: "60px", height: "60px"}} src={SYNC}/>
             <p className='p-3 items-center text-white font-semibold text-xl'>SyncSpace</p>
         </div>
         <div className="flex items-center mr-6">
             {/* log in */}
-            <button className="text-white">Log In</button>
+            {/* <button className="text-white">Log In</button> */}
             {/* sign up */}
-            <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Get Started</button>
-        </div>
-        </div>
+            {/* <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Get Started</button> */}
+        {/* </div> */}
+        {/* // </div> */} 
 
         <div className="bg-dark h-20"></div>
 
