@@ -1,55 +1,69 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState, useEffect } from 'react';
-import {serverAddress} from '../index'
+import { serverAddress } from '../index';
 import axios from 'axios';
 
 const Profile = () => {
-  const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
-  const [isChanged, setIsChanged] = useState(false);
+  const { user, isAuthenticated, isLoading, getAccessTokenSilently } =
+    useAuth0();
   const initialFormState = {
-    username: user.username,
     email: user.email,
+    username: user.username,
     password: '',
   };
   const [formData, setFormData] = useState(initialFormState);
-  const [previewImage, setPreviewImage] = useState(user.picture);
+  const [isChanged, setIsChanged] = useState(false);
+  const [isImageNew, setIsImageNew] = useState(false);
+  const [previewImage, setPreviewImage] = useState(new File([], ''));
 
   useEffect(() => {
-    const hasFormChanged = user.username !== formData.name || user.email !== formData.email || formData.password !== '' || user.picture !== previewImage;
+    const hasFormChanged =
+      user.username !== formData.username ||
+      user.email !== formData.email ||
+      formData.password !== '' ||
+      isImageNew;
     setIsChanged(hasFormChanged);
-  }, [user, formData, previewImage]);
-
-
+  }, [user, formData, isImageNew]);
 
   const updateUser = async (e) => {
     e.preventDefault();
-    setIsChanged(false);
     const token = await getAccessTokenSilently();
-    const data = {};
+    const body = new FormData();
     if (user.username !== formData.username) {
-      data.username = formData.username;
+      body.append('username', formData.username);
     }
     if (user.email !== formData.email) {
-      data.email = formData.email;
+      body.append('email', formData.email);
     }
     if (formData.password !== '') {
-      data.password = formData.password;
+      body.append('password', formData.password);
     }
-    if (user.picture !== previewImage) {
-      data.profile_picture = previewImage;
+    if (isImageNew) {
+      const imagefile = document.querySelector('#pfp');
+      body.append('profile_picture', imagefile.files[0]);
     }
-      
+
     const options = {
-      method: "PUT",
+      method: 'PUT',
       url: `${serverAddress}/api/users/${user.sub}`,
-      headers: { authorization: `Bearer ${token}` },
-      data: data
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+      data: body,
     };
 
     await axios(options)
       .then(() => {
-        console.log("yippie")
-        return
+        // Add alert popup
+        setFormData({
+          name: user.username,
+          email: user.email,
+          password: '',
+        });
+        setIsChanged(false);
+        setIsImageNew(false);
+        return;
       })
       .catch((error) => {
         console.error(error.message);
@@ -63,11 +77,11 @@ const Profile = () => {
       reader.onloadend = () => {
         setPreviewImage(reader.result);
         setIsChanged(true);
+        setIsImageNew(true);
       };
       reader.readAsDataURL(file);
     }
   };
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -95,10 +109,49 @@ const Profile = () => {
     isAuthenticated && (
       <div>
         <form onSubmit={updateUser}>
-          <div className="flex">
-            <div>
-              <img src={previewImage} alt={user.nickname} />
-              <input type="file" name="pfp" id="pfp" onChange={replaceImage} />
+          <div className="flex justify-around mt-10">
+            <div className="w-64">
+              {isImageNew ? (
+                <img
+                  src={previewImage}
+                  alt={user.nickname}
+                  className="w-64 h-64 object-cover"
+                />
+              ) : (
+                <img
+                  src={`${user.picture}?${Date.now()}`}
+                  alt={user.nickname}
+                  className="w-64 h-64 object-cover"
+                />
+              )}
+              <input
+                type="file"
+                name="pfp"
+                id="pfp"
+                className="my-2"
+                onChange={replaceImage}
+              />
+              <div>
+                <button
+                  type="submit"
+                  className={`bg-primary rounded p-2 mr-2 ${
+                    isChanged ? 'hover:bg-slate-400' : ''
+                  }  duration-100`}
+                  disabled={!isChanged}
+                >
+                  Update
+                </button>
+                <button
+                  type="button"
+                  className={`bg-primary rounded p-2 ${
+                    isChanged ? 'hover:bg-slate-400' : ''
+                  }  duration-100`}
+                  disabled={!isChanged}
+                  onClick={resetForm}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
             <div>
               <div>
@@ -107,6 +160,7 @@ const Profile = () => {
                   type="text"
                   name="username"
                   id="username"
+                  className="border mb-2"
                   value={formData.username}
                   onChange={handleInputChange}
                 />
@@ -117,6 +171,7 @@ const Profile = () => {
                   type="text"
                   name="email"
                   id="email"
+                  className="border mb-2"
                   value={formData.email}
                   onChange={handleInputChange}
                 />
@@ -127,17 +182,12 @@ const Profile = () => {
                   type="text"
                   name="password"
                   id="password"
+                  className="border mb-2"
                   value={formData.password}
                   onChange={handleInputChange}
                 />
               </div>
             </div>
-          </div>
-          <div>
-            <button type="submit" disabled={!isChanged}>Update</button>
-            <button type="button" disabled={!isChanged} onClick={resetForm}>
-              Cancel
-            </button>
           </div>
         </form>
       </div>
