@@ -13,7 +13,6 @@ import Nav from './Nav/nav';
 import Dashboard from './Dashboard/dashboard';
 import Organization from './Organization/organization';
 import Profile from './Profile/profile';
-import Recent from './Recent/recent';
 import LogIn from './LoggedOut/loggedout';
 import SignUp from './SignUp/signup';
 import LogOut from './LoggedIn/loggedin';
@@ -25,7 +24,6 @@ function App() {
   return (
     <Router>
       <Nav/>
-      {/* <Nav/> */}
       <div className="mainContainer">
         <Routes>
           <Route path="/landing" element={<Landing/>} />
@@ -37,7 +35,6 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/organization" element={<Organization />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/recent" element={<Recent />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<SignUp/>} />
           <Route path="/logout" element={<LogOut/>} />

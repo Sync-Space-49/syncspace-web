@@ -7,49 +7,31 @@ import { useNavigate } from "react-router-dom";
 
 const Organization = () => {
   const { getAccessTokenSilently, user } = useAuth0();
-  const userID = user.sub;
   const navigate = useNavigate();
-  let orgs = [];
-  let boards = []
+
+  const [stateOrgs, setOrgs] = useState()
+  const [boardsState, setBoards] = useState()
   
+  // for some reason needs to be call twice to update, will look into
   const getOrgs = async () => {
-    // gets the token and permissions -- need for the api call
     let token = await getAccessTokenSilently();
-
-    // creates the url for the api call
-    var url = `${serverAddress}/api/users/${userID}/organizations`
-    
-    // uses axios for the api call
-    axios.get(url, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
+    const userId = user.sub;
+    const options = {
+      method: 'GET',
+      url: `${serverAddress}/api/users/${userId}/organizations`,
+      headers: { authorization: `Bearer ${token}` }
+    }
+  
+    await axios(options)
       .then(res => {
-        orgs = res.data;
-   
-        console.log("Retreived ",orgs.length," organizations")
-
-        // will integrate later
-        // // assigns the array of the user's organizations to the orgs array
-        // return orgs = res.data;
+        setOrgs(res.data)
         
-        for (var i=0; i < res.data.length; i++) {
-          // this will need to be reworked
-          // currently reloads too many times iykyk
-          const name = document.createElement("h2")
-          name.innerHTML=res.data[i].name;
-          document.getElementById("orgs").appendChild(name);
-          
-          const description = document.createElement("p")
-          description.innerHTML=res.data[i].description;
-          document.getElementById("orgs").appendChild(description);
-
-          const ai_enabled = document.createElement("p")
-          ai_enabled.innerHTML=res.data[i].ai_enabled;
-          document.getElementById("orgs").appendChild(ai_enabled);
-
-          // maybe add a button to delete each org
+        console.log(stateOrgs)
+        if (res.data){
+          console.log("Retreived ",stateOrgs.length," organizations")
+        }
+        else{
+          console.log("this org does not have any boards")
         }
       })
       .catch((error) => {
@@ -59,19 +41,28 @@ const Organization = () => {
 
   const getBoards = async () => {
     let token = await getAccessTokenSilently();
-    let index = orgs.length-1
-    let orgID = orgs[index].id
 
-    var url = `${serverAddress}/api/organizations/${orgID}/boards`
+    // need to get index from orgs
+    let index = stateOrgs.length-1
+    let orgID = stateOrgs[index].id
 
-    axios.get(url, {
+    const options = {
+      method: 'GET',
+      url: `${serverAddress}/api/organizations/${orgID}/boards`,
       headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
+          authorization: `Bearer ${token}`
+      },
+    }; 
+
+    await axios(options)
     .then(res => {
-      boards = res.data
-      console.log("Retreived ",boards.length," boards for the organization named ", orgs[index].name)
+      setBoards(res.data)
+      if (res.data){
+        console.log("Retreived ",boardsState.length," boards for the organization named ", stateOrgs[index].name)
+      }
+      else{
+        console.log("this org does not have any boards")
+      }
     })
     .catch((error) => {
       console.log(error.message);
@@ -97,7 +88,6 @@ const Organization = () => {
     axios
       .request(options)
       .then(function (res) {
-        orgs = res.data;
 
         console.log("Created new organization")
       })
@@ -108,8 +98,9 @@ const Organization = () => {
 
   const createBoard = async () => {
     let token = await getAccessTokenSilently();
-    let index = orgs.length-1
-    let orgID = orgs[index].id
+    // need to grab org id from a specific org
+    let index = stateOrgs.length-1
+    let orgID = stateOrgs[index].id
     var url = `${serverAddress}/api/organizations/${orgID}/boards`
 
     const options = {
@@ -127,7 +118,6 @@ const Organization = () => {
     axios
       .request(options)
       .then(function (res) {
-        boards = res.data
         console.log("Created new board")
       })
       .catch(function (error) {
@@ -140,7 +130,7 @@ const Organization = () => {
 
     // deletes a specific org
     // need to implement
-    const orgID = orgs[0].id
+    const orgID = stateOrgs[0].id
     var url = `${serverAddress}/api/organizations/${orgID}`
 
     const options = {
@@ -161,7 +151,7 @@ const Organization = () => {
     axios
       .request(options)
       .then(response => {
-        console.log("Organization was deleted. There are now ", orgs.length-1, " organizations.");
+        console.log("Organization was deleted. There are now ", stateOrgs.length-1, " organizations.");
       })
       .catch(error => {
         console.error('Error deleting resource:', error);
@@ -173,10 +163,10 @@ const Organization = () => {
 
     // deletes a specific org
     // need to implement
-    let index = orgs.length-1
-    let orgID = orgs[index].id
-    let boardID = boards[0].id
-    console.log(index, orgID,boardID)
+    let index = stateOrgs.length-1
+    let orgID = stateOrgs[index].id
+    let boardID = boardsState[0].id
+    console.log(index, orgID, boardID)
     var url = `${serverAddress}/api/organizations/${orgID}/boards/${boardID}`
 
     const options = {
@@ -193,15 +183,19 @@ const Organization = () => {
     axios
       .request(options)
       .then(response => {
-        console.log("A board was deleted. There are now ", boards.length-1," boards.");
+        console.log("A board was deleted. There are now ", boardsState.length-1," boards.");
       })
       .catch(error => {
         console.error('Error deleting resource:', error);
       });
   }
   
+  useEffect(() => {
+    getOrgs();
+  },[])
+
   return (
-    <div>
+    <div> 
         <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={getOrgs} data-name="orgs">Get Orgs</button>
         <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={createOrg} data-name="orgs">Create Org</button>
         <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={deleteOrg} data-name="orgs">Delete Org</button>
@@ -211,7 +205,9 @@ const Organization = () => {
         <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={deleteBoard} data-name="orgs">Delete Board</button>
 
         <div id="orgs" className="bg-info">
-
+          { user && (
+            <h1>{user.username}</h1>
+          )}
         </div>
 
         <div>
