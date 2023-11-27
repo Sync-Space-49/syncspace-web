@@ -4,6 +4,8 @@ import { IoSettingsSharp } from "react-icons/io5";
 import SYNC from './images/SyncSpace-mint.png'
 import { serverAddress } from "../index";
 import axios from "axios";
+import DashOrg from '../DashOrg/dashorg';
+
 
 function Dashboard() {
 
@@ -19,23 +21,65 @@ function Dashboard() {
   const { getAccessTokenSilently, user } = useAuth0();
   const userID = user.sub;
   var url = `${serverAddress}/api/users/${userID}/organizations`
-  
+
+  const [orgs, setOrgs] = useState()  
 
   useEffect(()=> {
-    const getOrgs = async () => {
-      let token = await getAccessTokenSilently();
-      axios.get(url, {
-        headers: {
-          'Authorization': `Bearer ${token}`
+    getOrgs()
+  }, []);
+
+  const getOrgs = async () => {
+    let token = await getAccessTokenSilently();
+    const userId = user.sub;
+    const options = {
+      method: 'GET',
+      url: `${serverAddress}/api/users/${userId}/organizations`,
+      headers: { authorization: `Bearer ${token}` }
+    }
+  
+    await axios(options)
+      .then(res => {
+        setOrgs(res.data)
+        
+        console.log(orgs)
+        if (res.data){
+          console.log("Retreived ",orgs.length," organizations")
+        }
+        else{
+          console.log("this org does not have any boards")
         }
       })
-        .then(res => {
-          data = res.data;
-          console.log(data)
-        })
-    }
-    getOrgs();
-  }, []);
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+
+  const createOrg = async () => {
+    let token = await getAccessTokenSilently();
+    var url = `${serverAddress}/api/organizations`
+
+    const options = {
+      method: 'POST',
+      url: url,
+      params: { 
+        title: 'demo org 3',
+        description: 'demo org 3'
+      },
+      headers: {
+          'Authorization': `Bearer ${token}`
+      },
+    };  
+
+    axios
+      .request(options)
+      .then(function (res) {
+        console.log("Created new organization")
+        getOrgs()
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }
 
   return (
 
@@ -133,6 +177,10 @@ function Dashboard() {
                   <p className="text-dark">View and manage your organizations below.</p>
                 </div>
 
+                <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={createOrg} data-name="orgs">Create Org</button>
+                <p>need to implement on this page:</p>
+                <li>create org</li>
+
                 <div className="flex flex-wrap">
 
                 {/* Why arent you working I am going insane bruh */}
@@ -153,7 +201,15 @@ function Dashboard() {
                   <h1 className="ion-padding">No organizations were found</h1>
                 )} */}
 
-                <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
+                {orgs && orgs.length > 0 ? (
+                  orgs.map((org, i) => {
+                    return <DashOrg org={org} key={i} />;
+                  })
+                ) : (
+                  <h1 className="ion-padding">No orgs were found</h1>
+                )}
+
+                {/* <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
                   <div>
                   <img style={{height: "100px", width: "100px"}} src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-logo-100w.svg" className="p-2"></img>
                   </div>
@@ -221,7 +277,7 @@ function Dashboard() {
                     <p className="text-white font-semibold">Personal Project</p>
                     <IoSettingsSharp style={style}/>
                   </div>
-                </div>
+                </div> */}
 
                 </div>
 
@@ -249,46 +305,6 @@ function Dashboard() {
           </div>
 
         </div>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        {/* <div className="bg-light w-24 rounded">
-          <p> Log In</p>
-        </div>
-        <div className="bg-dark w-24 rounded">
-          <p> Log In</p>
-        </div>
-        <div className="bg-primary w-24 rounded">
-          <p> Log In</p>
-        </div>
-        <div className="bg-secondary w-24 rounded">
-          <p> Log In</p>
-        </div>
-        <div className="bg-tertiary w-24 rounded">
-          <p> Log In</p>
-        </div>
-        <div className="bg-blue w-24 rounded">
-          <p> Log In</p>
-        </div>
-        <div className="bg-black w-24 rounded">
-          <p> Log In</p>
-        </div>
-        <div className="bg-success w-24 rounded">
-          <p> Log In</p>
-        </div>
-        <div className="bg-info w-24 rounded">
-          <p> Log In</p>
-        </div>
-        <div className="bg-danger w-24 rounded">
-          <p> Log In</p>
-      </div> */}
     </div>
   );
 }
