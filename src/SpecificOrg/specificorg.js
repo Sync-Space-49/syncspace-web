@@ -17,7 +17,7 @@ import { useGetUsers } from "../hooks/useGetUsers";
 const SpecificOrg = () => {
     const match = useMatch("/organization/:orgId")
     const orgId = match.params.orgId
-    // console.log(orgId)
+    console.log(orgId)
 
     const {name, description} = useGetOrg()
     const { membersOrg } = useGetMembersOrg()
@@ -189,7 +189,7 @@ const SpecificOrg = () => {
 
         <br />
 
-        {/* { membersOrg && membersOrg.length > 0 
+        { membersOrg && membersOrg.length > 0 
             ? (
                 membersOrg.map((member, i) => {
                     return <p>{member.username} is a member of the organization</p>
@@ -221,7 +221,7 @@ const SpecificOrg = () => {
             ) 
             : (
                 <h1 className="ion-padding">No boards were found</h1>
-            )} */}
+            )}
             
     </div>
   );

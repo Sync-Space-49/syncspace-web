@@ -9,9 +9,9 @@ export const useUpdateOrg = () => {
     const match = useMatch("/organization/:orgId/update")
     const orgId = match.params.orgId
 
-    const updateOrg = async ({name, newName, description, newDescription}) => {
-        if (newName === "none"){
-            newName = name
+    const updateOrg = async ({title, newTitle, description, newDescription}) => {
+        if (newTitle === "none"){
+            newTitle = title
         }
         else if( newDescription === "none"){
             newDescription = description
@@ -25,7 +25,7 @@ export const useUpdateOrg = () => {
           url: url,          
           params: {
             description: newDescription,
-            name: newName
+            title: newTitle
           },
           headers: {
               'Authorization': `Bearer ${token}`

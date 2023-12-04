@@ -5,7 +5,7 @@ import axios from "axios"
 
 export const useGetUsers = () => {
     const {getAccessTokenSilently} = useAuth0()
-    const [users, setUsers] = useState("none")
+    const [users, setUsers] = useState([])
 
     const getUsers = async () => {
         let unsubscribe
