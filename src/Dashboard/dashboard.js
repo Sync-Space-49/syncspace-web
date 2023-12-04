@@ -1,9 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { IoSettingsSharp } from "react-icons/io5";
 import SYNC from './images/SyncSpace-mint.png'
-import { serverAddress } from "../index";
-import axios from "axios";
 import DashOrg from '../DashOrg/dashorg';
 import { useCreateOrg } from "../hooks/Orgs/useCreateOrg";
 import { useGetOrgs } from "../hooks/Orgs/useGetOrgs";
@@ -22,9 +19,6 @@ function Dashboard() {
   const [show, dashShow] = useState(true)
   const [org, orgShow] = useState(false)
   const [setting, settingShow] = useState(false)
-  var data = [];
-
-  const style = { color: "white" }
 
   const { user } = useAuth0();
 
@@ -164,7 +158,7 @@ function Dashboard() {
 
                 </div>
 
-                <button className="text-dark font-semibold rounded-md p-2 w-60 bg-primary" onClick={createOrg} data-name="orgs">+ Create New Organization</button>
+                {/* <button className="text-dark font-semibold rounded-md p-2 w-60 bg-primary" onClick={createOrg} data-name="orgs">+ Create New Organization</button> */}
 
 
               {/* Org Showcase */}
