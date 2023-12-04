@@ -107,52 +107,84 @@ const Profile = () => {
 
   return (
     isAuthenticated && (
-      <div>
+      <div className="flex bg-test h-screen justify-center pt-10">
         <form onSubmit={updateUser}>
-          <div className="flex justify-around mt-10">
-            <div className="w-64">
-              {isImageNew ? (
-                <img
-                  src={previewImage}
-                  alt={user.nickname}
-                  className="w-64 h-64 object-cover"
-                />
-              ) : (
-                <img
-                  src={`${user.picture}?${Date.now()}`}
-                  alt={user.nickname}
-                  className="w-64 h-64 object-cover"
-                />
-              )}
-              <input
-                type="file"
-                name="pfp"
-                id="pfp"
-                className="my-2"
-                onChange={replaceImage}
-              />
+          <div className="">
+          <div className="flex flex-col bg-landing w-fill p-6 rounded space-y-3 mt-3 mb-10">
               <div>
-                <button
-                  type="submit"
-                  className={`bg-primary rounded p-2 mr-2 ${
-                    isChanged ? 'hover:bg-slate-400' : ''
-                  }  duration-100`}
-                  disabled={!isChanged}
-                >
-                  Update
-                </button>
-                <button
-                  type="button"
-                  className={`bg-primary rounded p-2 ${
-                    isChanged ? 'hover:bg-slate-400' : ''
-                  }  duration-100`}
-                  disabled={!isChanged}
-                  onClick={resetForm}
-                >
-                  Cancel
-                </button>
+                  <h1
+                    className="font-semibold text-lg"
+                  >{user.name}</h1>
               </div>
+              <p>{user.nickname}</p>
+          </div>
+            
+            <div className="flex">
+
+              
+              <div className="flex flex-col bg-landing w-fill p-6 rounded space-y-5">
+                
+                <div>
+                  <h1
+                    className="font-semibold text-lg"
+                  >Photo</h1>
+                </div>
+                <div className="flex space-x-12">
+                  <div>
+                    {isImageNew ? (
+                      <img
+                        src={previewImage}
+                        alt={user.nickname}
+                        className="w-40 h-40 object-cover rounded-md"
+                      />
+                    ) : (
+                      <img
+                        src={`${user.picture}?${Date.now()}`}
+                        alt={user.nickname}
+                        className="w-40 h-40 object-cover rounded-md"
+                      />
+                    )}
+                  </div>
+                  <div className = "flex flex-col justify-center space-y-5">
+                      <p>
+                        Choose an image from your computer.
+                      </p>
+                      <input
+                          type="file"
+                          name="pfp"
+                          id="pfp"
+                          className="my-2"
+                          onChange={replaceImage}
+                      />
+                      <div className="flex space-x-1">
+                      <button
+                          type="submit"
+                          className={`bg-primary rounded p-2 mr-2 w-20 ${
+                          isChanged ? 'hover:bg-slate-400' : ''
+                          }  duration-100`}
+                          disabled={!isChanged}
+                      >
+                        Update
+                      </button>
+                      <button
+                          type="button"
+                          className={`bg-test text-white rounded p-2 w-20 ${
+                          isChanged ? 'hover:bg-slate-400' : ''
+                          }  duration-100`}
+                          disabled={!isChanged}
+                          onClick={resetForm}
+                      >
+                        Cancel
+                      </button>
+                      </div>
+                  <div>
+
+                </div>
+              </div>
+              
             </div>
+            
+            
             <div>
               <div>
                 <label htmlFor="username">Username: </label>
@@ -189,6 +221,20 @@ const Profile = () => {
               </div>
             </div>
           </div>
+        
+          </div>
+
+          <div className="flex flex-col bg-landing w-fill p-6 rounded space-y-5 mt-10">
+              <div>
+                  <h1
+                    className="font-semibold text-lg"
+                  >Information</h1>
+              </div>
+                <p>bsdhbfs</p>
+          </div>
+
+          </div>
+
         </form>
       </div>
     )

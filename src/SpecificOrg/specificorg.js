@@ -6,6 +6,7 @@ import {
 import { serverAddress } from "../index";
 import axios from "axios";
 import OrgBoards from "../OrgBoards/orgboards";
+import { IoIosArrowBack } from "react-icons/io";
 
 const SpecificOrg = () => {
     const match = useMatch("/organization/:orgId")
@@ -130,12 +131,53 @@ const SpecificOrg = () => {
     }    
 
   return (
-    <div> 
-        <h1>{org.name}</h1>
-        <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={deleteOrg} data-name="orgs">Delete Org</button>
-        <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={createBoard} data-name="orgs">Create Board</button>
-        <Link to={`/organization/${orgId}/update`} className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Edit Org</Link>
-        <p>hi from specific org</p>
+    <div className="bg-test h-screen flex justify-center">
+    <div className="flex flex-col p-6 bg-white h-fit w-4/5 rounded mt-20">
+        <div className="flex space-x-1 mb-2">
+            <Link className="p-1" to={`/dashboard`}><IoIosArrowBack /></Link>
+            <p>Return to Dashboard</p>
+        </div>
+        <div className="text-dark text-2xl font-semibold ml-4 mt-4">
+            <h1>{org.name}</h1>
+        </div> 
+        <div className="flex space-x-6">
+
+            <div>
+                <div className="mt-4">
+                    <h1 className="ml-4">Organization Settings</h1>
+                    <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={createBoard} data-name="orgs">Create Board</button>
+                    <Link to={`/organization/${orgId}/update`} className="text-dark font-semibold rounded-md m-4 p-3 bg-primary">Edit Organization</Link>
+            
+                </div>
+
+                <div className="mt-4">
+                    <h1 className="ml-4">Danger Zone</h1>
+                    <button className="text-white font-semibold rounded-md m-4 p-2 bg-danger" onClick={deleteOrg} data-name="orgs">Delete Organization</button>
+                </div>
+            </div>
+
+            <div className="w-fit">
+
+                <div className="mt-4 mb-4">
+                    <h1 className="font-semibold">Boards</h1>
+                </div>
+                
+                {boards && boards.length > 0 
+                    ? (
+                        boards.map((board, i) => {
+                        return <OrgBoards board={board} org={orgId} key={i} />
+                        })
+                    ) 
+                    : (
+                        <h1 className="ion-padding">No boards were found.</h1>
+                )}
+
+            </div>
+
+        </div>
+        
+        
+        {/* <p>hi from specific org</p>
         <p>need to implement first on this page:</p>
         <li>update org</li>
         <li>create board</li>
@@ -143,7 +185,10 @@ const SpecificOrg = () => {
         <li>read members</li>
         <li>assign people to org</li>
         <li>update roles/permissions for org</li>
-        <li>toggle enabled ai for entire org</li>
+        <li>toggle enabled ai for entire org</li> */}
+        {/* <div>
+            <h1>{org.name}'s Boards</h1>
+        </div>
         {boards && boards.length > 0 
             ? (
                 boards.map((board, i) => {
@@ -151,8 +196,9 @@ const SpecificOrg = () => {
                 })
             ) 
             : (
-                <h1 className="ion-padding">No boards were found</h1>
-            )}
+                <h1 className="ion-padding">No boards were found.</h1>
+            )} */}
+    </div>
     </div>
   );
 };
