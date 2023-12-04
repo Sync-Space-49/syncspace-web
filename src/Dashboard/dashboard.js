@@ -133,7 +133,7 @@ function Dashboard() {
                   <h1 className="text-dark text-3xl">Welcome {user.name}!</h1>
                   <p className="text-dark">View and manage your organizations below.</p>
                 </div>
-                
+    
                 <form onSubmit={ onSubmitCreate }>
                   <input 
                     type="text" 
@@ -154,103 +154,17 @@ function Dashboard() {
 
                 <div className="flex flex-wrap">
 
-                {/* Why arent you working I am going insane bruh */}
-                {/* {data ? (
-                  data.map((organization, i) => {
-                    return <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10" key={i}>
-                    <div>
-                    <img src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-logo-100w.svg" className="p-2"></img>
-                    </div>
-                    <div className="bg-test flex justify-between w-full p-2 items-center">
-                      <p className="text-white font-semibold">{organization}</p>
-                      <IoSettingsSharp style={style}/>
-                    </div>
-                  </div>
-                    //<SpecificOrganization org={organization} updateOrgList={updateOrgList} key={i} />;
-                  })
-                ) : (
-                  <h1 className="ion-padding">No organizations were found</h1>
-                )} */}
-
                 {orgs && orgs.length > 0 ? (
                   orgs.map((org, i) => {
                     return <DashOrg org={org} key={i} />;
                   })
                 ) : (
-                  <h1 className="ion-padding">No orgs were found</h1>
+                  <h1 className="ion-padding">No organizations were found.</h1>
                 )}
 
-                {/* <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
-                  <div>
-                  <img style={{height: "100px", width: "100px"}} src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-logo-100w.svg" className="p-2"></img>
-                  </div>
-                  <div className="bg-test flex justify-between w-full p-2 items-center">
-                    <p className="text-white font-semibold">SyncSpace</p>
-                    <IoSettingsSharp style={style}/>
-                  </div>
                 </div>
 
-                <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
-                  <div>
-                  <img style={{height: "100px", width: "100px"}} src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-app-icon-royalblue-v1.png" className="p-2"></img>
-                  </div>
-                  <div className="bg-test flex justify-between w-full p-2 items-center">
-                    <p className="text-white font-semibold">Portfolio</p>
-                    <IoSettingsSharp style={style}/>
-                  </div>
-                </div>
-
-                <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
-                  <div>
-                  <img style={{height: "100px", width: "100px"}} src='https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-app-icon-deepblue-v1.png' className="p-2"></img>
-                  </div>
-                  <div className="bg-test flex justify-between w-full p-2 items-center">
-                    <p className="text-white font-semibold">My List</p>
-                    <IoSettingsSharp style={style}/>
-                  </div>
-                </div>
-
-                <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
-                  <div>
-                  <img style={{height: "100px", width: "100px"}} src="https://s3.us-east-1.wasabisys.com/sync-space/pfp/johnny-appleseed.png" className="p-2"></img>
-                  </div>
-                  <div className="bg-test flex justify-between w-full p-2 items-center">
-                    <p className="text-white font-semibold">Ideas</p>
-                    <IoSettingsSharp style={style}/>
-                  </div>
-                </div>
-
-                <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
-                  <div>
-                  <img style={{height: "100px", width: "100px"}} src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-app-icon-deepblue-v1.png" className="p-2"></img>
-                  </div>
-                  <div className="bg-test flex justify-between w-full p-2 items-center">
-                    <p className="text-white font-semibold">Class Project</p>
-                    <IoSettingsSharp style={style}/>
-                  </div>
-                </div>
-
-                <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
-                  <div>
-                  <img style={{height: "100px", width: "100px"}} src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-logo-100w.svg" className="p-2"></img>
-                  </div>
-                  <div className="bg-test flex justify-between w-full p-2 items-center">
-                    <p className="text-white font-semibold">Class Project v2</p>
-                    <IoSettingsSharp style={style}/>
-                  </div>
-                </div>
-
-                <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
-                  <div>
-                  <img style={{height: "100px", width: "100px"}} src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-logo-100w.svg" className="p-2"></img>
-                  </div>
-                  <div className="bg-test flex justify-between w-full p-2 items-center">
-                    <p className="text-white font-semibold">Personal Project</p>
-                    <IoSettingsSharp style={style}/>
-                  </div>
-                </div> */}
-
-                </div>
+                <button className="text-dark font-semibold rounded-md p-2 w-60 bg-primary" onClick={createOrg} data-name="orgs">+ Create New Organization</button>
 
 
               {/* Org Showcase */}

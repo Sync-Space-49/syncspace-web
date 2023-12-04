@@ -12,14 +12,14 @@ const OrgBoards = ({board, org}) => {
 
   return (
     <div>
-        <div className="flex flex-col w-1/5 border border-dark rounded items-center mr-6 mb-10">
+        <div className="flex flex-col border border-dark rounded items-center mr-6 mb-10">
           <div>
-            <img className="h-100px w-100px" src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-logo-100w.svg" alt="SyncSpace Mint" />
+            <img className="p-2" src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-logo-100w.svg" alt="SyncSpace Mint" />
           </div>
 
           <div className="bg-test flex justify-between w-full p-2 items-center">
-            <Link to={`/organization/${org}/${board.id}`} className="text-white font-semibold">{board.title}</Link>
-            <IoSettingsSharp style={style}/>
+            <p className="text-white font-semibold">{board.title}</p>
+            <Link to={`/organization/${org}/${board.id}`} className="text-white font-semibold ml-6"><IoSettingsSharp style={style}/></Link>
           </div>
         </div>
     </div>

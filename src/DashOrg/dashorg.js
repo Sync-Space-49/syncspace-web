@@ -12,15 +12,13 @@ const DashOrg = ({org}) => {
     <div>
         <div className="flex flex-col border border-dark rounded items-center mr-6 mb-10">
           <div>
-            <img className="h-100px w-100px" src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-logo-100w.svg" alt="SyncSpace Mint" />
+            <img className="p-2" src="https://s3.us-east-1.wasabisys.com/sync-space/logo/SyncSpace-logo-100w.svg" alt="SyncSpace Mint" />
           </div>
 
           <div className="bg-test flex justify-between w-full p-2 items-center">
             <p className="text-white font-semibold">{org.name}</p>
-            <IoSettingsSharp style={style}/>
+            <Link to={`/organization/${org.id}`} className="ml-6"><IoSettingsSharp style={style}/></Link>
           </div>
-          <Link to={`/organization/${org.id}`} className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Visit {org.name}</Link>
-          <p>{org.description}</p>
         </div>
     </div>
   );

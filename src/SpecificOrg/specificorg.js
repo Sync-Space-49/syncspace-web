@@ -6,6 +6,7 @@ import {
 import { serverAddress } from "../index";
 import axios from "axios";
 import OrgBoards from "../OrgBoards/orgboards";
+import { IoIosArrowBack } from "react-icons/io";
 // import { useGetOrg } from "../hooks/useGetOrg";
 import { useGetOrgs } from "../hooks/Orgs/useGetOrgs";
 import { useGetOrg } from "../hooks/Orgs/useGetOrg";
@@ -153,12 +154,54 @@ const SpecificOrg = () => {
     }
 
   return (
+
+    <div className="bg-test h-screen flex justify-center">
+    <div className="flex flex-col p-6 bg-white h-fit w-4/5 rounded mt-20">
+        <div className="flex space-x-1 mb-2">
+            <Link className="p-1" to={`/dashboard`}><IoIosArrowBack /></Link>
+            <p>Return to Dashboard</p>
+        </div>
+        <div className="text-dark text-2xl font-semibold ml-4 mt-4">
+            <h1>{org.name}</h1>
+        </div> 
+        <div className="flex space-x-6">
+
+            <div>
+                <div className="mt-4">
+                    <h1 className="ml-4">Organization Settings</h1>
+                    <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={createBoard} data-name="orgs">Create Board</button>
+                    <Link to={`/organization/${orgId}/update`} className="text-dark font-semibold rounded-md m-4 p-3 bg-primary">Edit Organization</Link>
+            
+                </div>
+
+                <div className="mt-4">
+                    <h1 className="ml-4">Danger Zone</h1>
+                    <button className="text-white font-semibold rounded-md m-4 p-2 bg-danger" onClick={deleteOrg} data-name="orgs">Delete Organization</button>
+                </div>
+            </div>
+
+            <div className="w-fit">
+
+                <div className="mt-4 mb-4">
+                    <h1 className="font-semibold">Boards</h1>
+                </div>
+                
+                {boards && boards.length > 0 
+                    ? (
+                        boards.map((board, i) => {
+                        return <OrgBoards board={board} org={orgId} key={i} />
+                        })
+                    ) 
+                    : (
+                        <h1 className="ion-padding">No boards were found.</h1>
+                )}
+
+            </div>
+
+        </div>
     <div> 
         <h1>{name}</h1>
         <h2>{description}</h2>
-        <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={deleteOrg} data-name="orgs">Delete Org</button>
-        <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={createBoardOld} data-name="orgs">Create Board</button>
-        <Link to={`/organization/${orgId}/update`} className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Edit Org</Link>
         
         <form onSubmit={ onSubmitCreateBoard }>
             <input 
@@ -180,6 +223,7 @@ const SpecificOrg = () => {
         <br />
 
         <p>get members, get users, and get boards works, for some reason .map is no longer a function for these.... i dont really know</p>
+
         <p>need to implement first on this page:</p>
             <li>create board - something with my postman is wrong</li>
         <p>need to implement second:</p>
@@ -222,7 +266,6 @@ const SpecificOrg = () => {
             : (
                 <h1 className="ion-padding">No boards were found</h1>
             )} */}
-            
     </div>
   );
 };
