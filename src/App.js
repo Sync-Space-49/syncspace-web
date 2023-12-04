@@ -8,20 +8,16 @@ import {
   Route
 } from "react-router-dom";
 
-import Landing from './Landing/landing';
-import Nav from './Nav/nav';
-import Dashboard from './Dashboard/dashboard';
-import Organization from './Organizations/organizations';
-import Profile from './Profile/profile';
-import LogIn from './LoggedOut/loggedout';
-import SignUp from './SignUp/signup';
-import LogOut from './LoggedIn/loggedin';
-import DashOrg from './DashOrg/dashorg';
-import SpecificOrg from './SpecificOrg/specificorg';
-import UpdateOrg from './UpdateOrg/updateorg';
+import Landing from './Pages/landing';
+import Nav from './Components/nav';
+import Dashboard from './Pages/dashboard';
+import Profile from './Pages/profile';
+import DashOrg from './Components/Orgs/dashorg';
+import SpecificOrg from './Components/Orgs/specificorg';
+import UpdateOrg from './Components/Orgs/updateorg';
 import { useAuth0 } from "@auth0/auth0-react";
-import SpecificBoard from './SpecificBoard/specificboard';
-import UpdateBoard from './UpdateBoard/updateboard';
+import SpecificBoard from './Components/Boards/specificboard';
+import UpdateBoard from './Components/Boards/updateboard';
 
 function App() {
   const { isAuthenticated } = useAuth0();
@@ -43,11 +39,7 @@ function App() {
           <Route path="/organization/:orgId/:boardId" element={<SpecificBoard/>}/>
           <Route path="/organization/:orgId/:boardId/update" element={<UpdateBoard/>}/>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/organization" element={<Organization />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/signup" element={<SignUp/>} />
-          <Route path="/logout" element={<LogOut/>} />
         </Routes>
       </div>
     </Router>

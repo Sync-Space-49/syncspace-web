@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import LoggedOut from "../LoggedOut/loggedout";
-import LoggedIn from "../LoggedIn/loggedin";
+import LoggedOut from "./loggedout";
+import LoggedIn from "./loggedin";
   
   function Nav() {
     const { isAuthenticated } = useAuth0();
