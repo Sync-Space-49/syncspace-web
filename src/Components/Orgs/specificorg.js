@@ -3,19 +3,19 @@ import React, { useEffect, useState } from "react";
 import {
   Link, useMatch, useNavigate
 } from "react-router-dom";
-import { serverAddress } from "../index";
+import { serverAddress } from "../../index";
 import axios from "axios";
-import OrgBoards from "../OrgBoards/orgboards";
+import OrgBoards from "./orgboards";
 import { IoIosArrowBack } from "react-icons/io";
-import { useGetOrg } from "../hooks/Orgs/useGetOrg";
-import { useCreateBoard } from "../hooks/Boards/useCreateBoard";
-import { useGetMembersOrg } from "../hooks/Orgs/useGetMembersOrg";
-import { useGetUsers } from "../hooks/useGetUsers";
+import { useGetOrg } from "../../hooks/Orgs/useGetOrg";
+import { useCreateBoard } from "../../hooks/Boards/useCreateBoard";
+import { useGetMembersOrg } from "../../hooks/Orgs/useGetMembersOrg";
+import { useGetUsers } from "../../hooks/useGetUsers";
 
 const SpecificOrg = () => {
     const match = useMatch("/organization/:orgId")
     const orgId = match.params.orgId
-    // console.log(orgId)
+    console.log(orgId)
 
     const {name, description} = useGetOrg()
     const { membersOrg } = useGetMembersOrg()

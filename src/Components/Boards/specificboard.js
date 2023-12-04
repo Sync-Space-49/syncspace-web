@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import {
   Link, useMatch, useNavigate
 } from "react-router-dom";
-import { serverAddress } from "../index";
+import { serverAddress } from "../../index";
 import axios from "axios";
-import ToggleAI from '../ToggleAI/toggleAI';
+import ToggleAI from '../toggleAI';
 import { IoIosArrowBack } from "react-icons/io";
-import { useGetMembersBoard } from "../hooks/Boards/useGetMembersBoard";
+import { useGetMembersBoard } from "../../hooks/Boards/useGetMembersBoard";
 
 const SpecificBoard = () => {
     const match = useMatch("/organization/:orgId/:boardId")

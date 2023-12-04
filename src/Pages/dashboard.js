@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import SYNC from './images/SyncSpace-mint.png'
-import DashOrg from '../DashOrg/dashorg';
+import DashOrg from '../Components/Orgs/dashorg';
 import { useCreateOrg } from "../hooks/Orgs/useCreateOrg";
 import { useGetOrgs } from "../hooks/Orgs/useGetOrgs";
 
