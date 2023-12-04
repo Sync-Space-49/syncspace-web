@@ -5,9 +5,17 @@ import SYNC from './images/SyncSpace-mint.png'
 import { serverAddress } from "../index";
 import axios from "axios";
 import DashOrg from '../DashOrg/dashorg';
+import { useCreateOrg } from "../hooks/Orgs/useCreateOrg";
+import { useGetOrgs } from "../hooks/Orgs/useGetOrgs";
 
 
 function Dashboard() {
+
+  const { createOrg } = useCreateOrg()
+  const { orgs } = useGetOrgs()
+
+  const [titleCreateOrg, setTitleCreateOrg] = useState("none")
+  const [descCreateOrg, setDescCreateOrg] = useState("none")
 
   const { logout } = useAuth0();
 
@@ -18,67 +26,16 @@ function Dashboard() {
 
   const style = { color: "white" }
 
-  const { getAccessTokenSilently, user } = useAuth0();
-  const userID = user.sub;
-  var url = `${serverAddress}/api/users/${userID}/organizations`
+  const { user } = useAuth0();
 
-  const [orgs, setOrgs] = useState()  
-
-  useEffect(()=> {
-    getOrgs()
-  }, []);
-
-  const getOrgs = async () => {
-    let token = await getAccessTokenSilently();
-    const userId = user.sub;
-    const options = {
-      method: 'GET',
-      url: `${serverAddress}/api/users/${userId}/organizations`,
-      headers: { authorization: `Bearer ${token}` }
-    }
-  
-    await axios(options)
-      .then(res => {
-        setOrgs(res.data)
-        
-        console.log(orgs)
-        if (res.data){
-          console.log("Retreived ",orgs.length," organizations")
-        }
-        else{
-          console.log("No boards were found under this organization.")
-        }
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }
-
-  const createOrg = async () => {
-    let token = await getAccessTokenSilently();
-    var url = `${serverAddress}/api/organizations`
-
-    const options = {
-      method: 'POST',
-      url: url,
-      params: { 
-        title: 'demo org 3',
-        description: 'demo org 3'
-      },
-      headers: {
-          'Authorization': `Bearer ${token}`
-      },
-    };  
-
-    axios
-      .request(options)
-      .then(function (res) {
-        console.log("Created new organization")
-        getOrgs()
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+  const onSubmitCreate = async (e) => {
+    e.preventDefault()
+    createOrg({
+      title: titleCreateOrg,
+      description: descCreateOrg
+    })
+    document.getElementById('title-create-org').value = ''
+    document.getElementById('desc-create-org').value = ''
   }
 
   return (
@@ -176,9 +133,24 @@ function Dashboard() {
                   <h1 className="text-dark text-3xl">Welcome {user.name}!</h1>
                   <p className="text-dark">View and manage your organizations below.</p>
                 </div>
-
-                {/* <p>need to implement on this page:</p>
-                <li>create org</li> */}
+    
+                <form onSubmit={ onSubmitCreate }>
+                  <input 
+                    type="text" 
+                    placeholder="Name" 
+                    required 
+                    id="title-create-org"
+                    onChange={(e) => setTitleCreateOrg(e.target.value)} 
+                    />
+                  <input 
+                    type="text" 
+                    placeholder="Description" 
+                    required 
+                    id="desc-create-org"
+                    onChange={(e) => setDescCreateOrg(e.target.value)}
+                    />
+                  <button type="submit" className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Create Organization</button>
+                </form>
 
                 <div className="flex flex-wrap">
 

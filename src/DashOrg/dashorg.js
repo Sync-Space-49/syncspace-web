@@ -19,7 +19,6 @@ const DashOrg = ({org}) => {
             <p className="text-white font-semibold">{org.name}</p>
             <Link to={`/organization/${org.id}`} className="ml-6"><IoSettingsSharp style={style}/></Link>
           </div>
-          
         </div>
     </div>
   );
