@@ -20,6 +20,7 @@ const DashOrg = ({org}) => {
             <IoSettingsSharp style={style}/>
           </div>
           <Link to={`/organization/${org.id}`} className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Visit {org.name}</Link>
+          <p>{org.description}</p>
         </div>
     </div>
   );

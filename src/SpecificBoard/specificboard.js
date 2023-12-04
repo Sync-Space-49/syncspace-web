@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import { serverAddress } from "../index";
 import axios from "axios";
+import { useGetMembersBoard } from "../hooks/Boards/useGetMembersBoard";
 
 const SpecificBoard = () => {
     const match = useMatch("/organization/:orgId/:boardId")
@@ -14,6 +15,8 @@ const SpecificBoard = () => {
     console.log(boardId)
 
     const navigate = useNavigate()
+
+    const { membersBoard } = useGetMembersBoard()
 
     const { getAccessTokenSilently } = useAuth0();
     const [org, setOrg] = useState(false) 
@@ -108,13 +111,23 @@ const SpecificBoard = () => {
         <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={deleteBoard} data-name="orgs">Delete Board</button>
         <Link to={`/organization/${orgId}/${boardId}/update`} className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Edit Board</Link>
 
-        <p>hi from specific board</p>
         <p>need to implement on this page:</p>
-        <li>update board</li>
-        <li>read members</li>
-        <li>assign people to board</li>
-        <li>update roles/permissions for board</li>
-        <li>toggle ai for this board??</li>
+            <li>update board - hook created, i think something wrong with postman</li>
+            <li>read members - hook is created, i think its a postman issue pretty sure i have the wrong url</li>
+            <li>assign people to board</li>
+            <li>update roles/permissions for board</li>
+            <li>toggle ai for this board??</li>
+
+        {/* { membersBoard && membersBoard.length > 0
+          ? (
+            membersBoard.map((member, i) => {
+              return <p>{member.username} is a member of this board</p>
+            })
+          )
+          : (
+            <p>This board does not have any members?????</p>
+          )} */}
+
     </div>
   );
 };
