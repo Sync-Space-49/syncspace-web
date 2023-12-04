@@ -12,7 +12,7 @@ export const useGetOrgUpdate = () => {
     // console.log(orgId)
 
     const [org, setOrg] = useState() 
-    const [name, setName] = useState()
+    const [title, setTitle] = useState()
     const [description, setDescription] = useState()
 
     const getOrgUpdate = async () => {
@@ -28,7 +28,7 @@ export const useGetOrgUpdate = () => {
         await axios(options)
           .then(res => {
             setOrg(res.data)
-            setName(res.data.name)
+            setTitle(res.data.name)
             setDescription(res.data.description)
             console.log(org)
             
@@ -49,5 +49,5 @@ export const useGetOrgUpdate = () => {
         getOrgUpdate()
     }, [])
     
-    return { name, description }
+    return { title, description }
 }

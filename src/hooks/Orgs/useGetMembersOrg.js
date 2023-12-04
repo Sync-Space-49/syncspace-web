@@ -7,7 +7,7 @@ import axios from "axios"
 export const useGetMembersOrg = () => {
     const { getAccessTokenSilently } = useAuth0()
 
-    const [membersOrg, setMembersOrg] = useState("none")
+    const [membersOrg, setMembersOrg] = useState([])
 
     const match = useMatch("/organization/:orgId")
     const orgId = match.params.orgId
