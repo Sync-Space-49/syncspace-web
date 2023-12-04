@@ -6,12 +6,10 @@ import {
 import { serverAddress } from "../index";
 import axios from "axios";
 import OrgBoards from "../OrgBoards/orgboards";
-// import { useGetOrg } from "../hooks/useGetOrg";
-import { useGetOrgs } from "../hooks/Orgs/useGetOrgs";
+import { IoIosArrowBack } from "react-icons/io";
 import { useGetOrg } from "../hooks/Orgs/useGetOrg";
 import { useCreateBoard } from "../hooks/Boards/useCreateBoard";
 import { useGetMembersOrg } from "../hooks/Orgs/useGetMembersOrg";
-import MembersOrg from "../MembersOrg/membersorg";
 import { useGetUsers } from "../hooks/useGetUsers";
 
 const SpecificOrg = () => {
@@ -33,6 +31,7 @@ const SpecificOrg = () => {
     const [org, setOrg] = useState(false) 
     const [boards, setBoards] = useState(false)
 
+    // need until useGetBoards hook is implemented
     useEffect(()=> {
         getOrgOld()
       }, []);
@@ -89,6 +88,7 @@ const SpecificOrg = () => {
             });    
     }
       
+    // need to implement hook for this 
     const deleteOrg = async () => {
         let token = await getAccessTokenSilently();
 
@@ -114,35 +114,7 @@ const SpecificOrg = () => {
             .catch(error => {
             console.error('Error deleting resource:', error);
             });
-    }
-
-    const createBoardOld = async () => {
-        let token = await getAccessTokenSilently();
-        
-        var url = `${serverAddress}/api/organizations/${orgId}/boards`
-    
-        const options = {
-          method: 'POST',
-          url: url,
-          params: { 
-            title: 'new board from MJ',
-            isPrivate: false
-          },
-          headers: {
-              'Authorization': `Bearer ${token}`
-          },
-        };  
-    
-        axios
-          .request(options)
-          .then(function (res) {
-            console.log("Created new board")
-            getOrgOld()
-          })
-          .catch(function (error) {
-              console.error(error);
-          });
-    }  
+    } 
     
     const onSubmitCreateBoard = async (e) => {
         e.preventDefault()
@@ -152,79 +124,107 @@ const SpecificOrg = () => {
         })
     }
 
-  return (
-    <div> 
-        <h1>{name}</h1>
-        <h2>{description}</h2>
-        <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={deleteOrg} data-name="orgs">Delete Org</button>
-        <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={createBoardOld} data-name="orgs">Create Board</button>
-        <Link to={`/organization/${orgId}/update`} className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Edit Org</Link>
-        
-        <form onSubmit={ onSubmitCreateBoard }>
-            <input 
-                type="text"
-                placeholder="Name"
-                onChange={(e) => setTitleCreateBoard(e.target.value)}
-                />
-            <input 
-                type="text" 
-                placeholder="Description"
-                onChange={(e) => setDescCreateBoard(e.target.value)}
-                />
-            <button 
-                type="submit"
-                className="text-dark font-semibold rounded-md m-4 p-2 bg-primary"
-                >Create Board</button>
-        </form>
-        
-        <br />
+    return (
+        <div className="bg-test h-screen flex justify-center">
+            <div className="flex flex-col p-6 bg-white h-fit w-4/5 rounded mt-20">
+                <div className="flex space-x-1 mb-2">
+                    <Link className="p-1" to={`/dashboard`}><IoIosArrowBack /></Link>
+                    <p>Return to Dashboard</p>
+                </div>
+                <div className="text-dark text-2xl font-semibold ml-4 mt-4">
+                    <h1>{org.name}</h1>
+                </div> 
+                <div className="flex space-x-6">
 
-        <p>get members, get users, and get boards works, for some reason .map is no longer a function for these.... i dont really know</p>
-        <p>need to implement first on this page:</p>
-            <li>create board - something with my postman is wrong</li>
-        <p>need to implement second:</p>
-            <li>assign people to org - in progress - can see users gotta assign to org</li>
-            <li>update roles/permissions for org</li>
-            <li>toggle enabled ai for entire org - Kaitlyn completed</li>
+                    <div>
+                        <div className="mt-4">
+                            <h1 className="ml-4">Organization Settings</h1>
+                            {/* if you want me to change create board from a form to a button to another page let me know */}
+                            {/* <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={createBoard} data-name="orgs">Create Board</button> */}
+                            <Link to={`/organization/${orgId}/update`} className="text-dark font-semibold rounded-md m-4 p-3 bg-primary">Edit Organization</Link>
+                    
+                        </div>
 
-        <br />
+                        <div className="mt-4">
+                            <h1 className="ml-4">Danger Zone</h1>
+                            <button className="text-white font-semibold rounded-md m-4 p-2 bg-danger" onClick={deleteOrg} data-name="orgs">Delete Organization</button>
+                        </div>
+                    </div>
 
-        { membersOrg && membersOrg.length > 0 
-            ? (
-                membersOrg.map((member, i) => {
-                    return <p>{member.username} is a member of the organization</p>
-                })
-            ) 
-            : (
-                <p>This org does not have any members</p>
-            )}
+                    <div className="w-fit">
 
-        <br />
+                        <div className="mt-4 mb-4">
+                            <h1 className="font-semibold">Boards</h1>
+                        </div>
+                        
+                        {boards && boards.length > 0 
+                            ? (
+                                boards.map((board, i) => {
+                                    return <OrgBoards board={board} org={orgId} key={i} />
+                                })
+                            ) 
+                            : (
+                                <h1 className="ion-padding">No boards were found.</h1>
+                        )}
 
-        {users && users.length > 0
-            ? (
-                users.map((user, i) => {
-                    return <p>{user.username}</p>
-                })
-            )
-            : (
-                <p>There are no users...... which is an issue cause how am i here</p>
-            )}
+                    </div>
+
+                </div>
+                <h1>{name}</h1>
+                <h2>{description}</h2>
                 
-        <br />
+                <form onSubmit={ onSubmitCreateBoard }>
+                    <input 
+                        type="text"
+                        placeholder="Name"
+                        onChange={(e) => setTitleCreateBoard(e.target.value)}
+                        />
+                    <input 
+                        type="text" 
+                        placeholder="Description"
+                        onChange={(e) => setDescCreateBoard(e.target.value)}
+                        />
+                    <button 
+                        type="submit"
+                        className="text-dark font-semibold rounded-md m-4 p-2 bg-primary"
+                        >Create Board</button>
+                </form>
+                
+                <br />
 
-        {boards && boards.length > 0 
-            ? (
-                boards.map((board, i) => {
-                    return <OrgBoards board={board} org={orgId} key={i} />
-                })
-            ) 
-            : (
-                <h1 className="ion-padding">No boards were found</h1>
-            )}
-            
-    </div>
-  );
+                <p>need to implement on this page:</p>
+                    <li>assign people to org - in progress - can see users gotta assign to org</li>
+                    <li>update roles/permissions for org</li>
+
+                <br />
+
+                <h2>Org Members</h2>
+                { membersOrg && membersOrg.length > 0 
+                    ? (
+                        membersOrg.map((member, i) => {
+                            return <p>{member.username} is a member of the organization</p>
+                        })
+                    ) 
+                    : (
+                        <p>This org does not have any members</p>
+                    )}
+
+                <br />
+                
+                <h2>Auth0 Users</h2>
+                {users && users.length > 0
+                    ? (
+                        users.map((user, i) => {
+                            return <p>{user.username}</p>
+                        })
+                    )
+                    : (
+                        <p>There are no users...... which is an issue cause how am i here</p>
+                    )}
+            </div>
+
+        </div>
+    );
 };
 
 export default SpecificOrg;

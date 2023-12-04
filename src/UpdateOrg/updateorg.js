@@ -1,7 +1,5 @@
-import React, { useEffect, useState} from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { serverAddress } from "../index";
-import axios from "axios";
 import {
   Link, useMatch, useNavigate
 } from "react-router-dom";
@@ -12,10 +10,10 @@ import { useGetOrgUpdate } from "../hooks/Orgs/useGetOrgUpdate";
 const UpdateOrg = () => {
     const {isLoading } = useAuth0(); 
 
-    const { name, description } = useGetOrgUpdate()
+    const { title, description } = useGetOrgUpdate()
     const { updateOrg } = useUpdateOrg()
 
-    const [newName, setNewName] = useState("none")
+    const [newTitle, setNewTitle] = useState("none")
     const [newDesc, setNewDesc] = useState("none")
 
     const match = useMatch("/organization/:orgId/update")
@@ -26,12 +24,12 @@ const UpdateOrg = () => {
     const onSubmit = async (e) => {
       e.preventDefault()
       updateOrg({
-        name: name,
-        newName: newName,
+        title: title,
+        newTitle: newTitle,
         description: description,
         newDescription: newDesc
       })
-      document.getElementById('name').value = ''
+      document.getElementById('title').value = ''
       document.getElementById('description').value = ''
       navigate(`/organization/${orgId}`)
     }
@@ -42,12 +40,12 @@ const UpdateOrg = () => {
 
   return (
     <div>
-        <h1>Update {name} Organization</h1>
+        <h1>Update {title} Organization</h1>
         <form id="form" onSubmit={ onSubmit }>
             <input 
-              placeholder={name} 
-              id="name"
-              onChange={(e) => setNewName(e.target.value)}
+              placeholder={title} 
+              id="title"
+              onChange={(e) => setNewTitle(e.target.value)}
               />
             <input 
               placeholder={description} 
