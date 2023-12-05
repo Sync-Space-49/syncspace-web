@@ -3,8 +3,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import {
   Link, useMatch, useNavigate
 } from "react-router-dom";
-import { useUpdateOrg } from "../../hooks/Orgs/useUpdateOrg";
-import { useGetOrgUpdate } from "../../hooks/Orgs/useGetOrgUpdate";
+import { useUpdateOrg } from "../hooks/Orgs/useUpdateOrg";
+import { useGetOrgUpdate } from "../hooks/Orgs/useGetOrgUpdate";
 
 
 const UpdateOrg = () => {
@@ -41,7 +41,7 @@ const UpdateOrg = () => {
   return (
     <div>
         <h1>Update {title} Organization</h1>
-        <form id="form" onSubmit={ onSubmit }>
+        <form onSubmit={ onSubmit }>
             <input 
               placeholder={title} 
               id="title"

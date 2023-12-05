@@ -4,6 +4,7 @@ import axios from "axios";
 
 export const useCreateOrg = () => {
     const { getAccessTokenSilently } = useAuth0()
+    
     const createOrg = async ({title, description}) => {
         let token = await getAccessTokenSilently();
         var url = `${serverAddress}/api/organizations`

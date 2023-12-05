@@ -3,14 +3,16 @@ import React, { useEffect, useState } from "react";
 import {
   Link, useMatch, useNavigate
 } from "react-router-dom";
-import { serverAddress } from "../../index";
+import { serverAddress } from "../index";
 import axios from "axios";
-import OrgBoards from "./orgboards";
+import OrgBoards from "../Components/Orgs/orgboards";
 import { IoIosArrowBack } from "react-icons/io";
-import { useGetOrg } from "../../hooks/Orgs/useGetOrg";
-import { useCreateBoard } from "../../hooks/Boards/useCreateBoard";
-import { useGetMembersOrg } from "../../hooks/Orgs/useGetMembersOrg";
-import { useGetUsers } from "../../hooks/useGetUsers";
+import { useGetOrg } from "../hooks/Orgs/useGetOrg";
+import { useCreateBoard } from "../hooks/Boards/useCreateBoard";
+import { useGetMembersOrg } from "../hooks/Orgs/useGetMembersOrg";
+import { useGetUsers } from "../hooks/useGetUsers";
+import { useGetBoards } from "../hooks/Boards/useGetBoards";
+import { useDeleteOrg } from "../hooks/Orgs/useDeleteOrg";
 
 const SpecificOrg = () => {
     const match = useMatch("/organization/:orgId")
@@ -21,100 +23,12 @@ const SpecificOrg = () => {
     const { membersOrg } = useGetMembersOrg()
     const { users } = useGetUsers()
 
+    const { boards } = useGetBoards()
+    const { deleteOrg } = useDeleteOrg()
+
     const { createBoard } = useCreateBoard()
     const [titleCreateBoard, setTitleCreateBoard] = useState("none")
     const [descCreateBoard, setDescCreateBoard] = useState("none")
-
-    const navigate = useNavigate()
-
-    const { getAccessTokenSilently } = useAuth0();
-    const [org, setOrg] = useState(false) 
-    const [boards, setBoards] = useState(false)
-
-    // need until useGetBoards hook is implemented
-    useEffect(()=> {
-        getOrgOld()
-      }, []);
-      
-    const getOrgOld = async () => {
-        let token = await getAccessTokenSilently();
-        const options = {
-            method: 'GET',
-            url: `${serverAddress}/api//organizations/${orgId}`,
-            headers: { authorization: `Bearer ${token}` }
-        }
-        
-        await axios(options)
-            .then(res => {
-            setOrg(res.data)
-            
-            if (res.data){
-                // console.log("Retreived organization")
-                getBoards()
-            }
-            else{
-                console.log("this org does not exist?")
-            }
-            })
-            .catch((error) => {
-            console.log(error.message);
-            });
-    }
-
-    const getBoards = async () => {
-        let token = await getAccessTokenSilently();
-
-        const options = {
-            method: 'GET',
-            url: `${serverAddress}/api/organizations/${orgId}/boards`,
-            headers: {
-                authorization: `Bearer ${token}`
-            },
-        }; 
-
-        await axios(options)
-            .then(res => {
-                setBoards(res.data)
-                console.log(boards)
-                if (res.data){
-                    console.log("Retreived ",boards.length," boards for the organization named ", org.name)
-                }
-                else{
-                    console.log("this org does not have any boards")
-                }
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });    
-    }
-      
-    // need to implement hook for this 
-    const deleteOrg = async () => {
-        let token = await getAccessTokenSilently();
-
-        var url = `${serverAddress}/api/organizations/${orgId}`
-
-        const options = {
-            method: 'DELETE',
-            url: url,
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-            data: {
-            ordId: orgId
-            }
-        };
-
-        axios
-            .request(options)
-            .then(response => {
-            console.log("Organization was deleted.");
-            navigate("/")
-            })
-            .catch(error => {
-            console.error('Error deleting resource:', error);
-            });
-    } 
     
     const onSubmitCreateBoard = async (e) => {
         e.preventDefault()
@@ -132,7 +46,7 @@ const SpecificOrg = () => {
                     <p>Return to Dashboard</p>
                 </div>
                 <div className="text-dark text-2xl font-semibold ml-4 mt-4">
-                    <h1>{org.name}</h1>
+                    <h1>{name}</h1>
                 </div> 
                 <div className="flex space-x-6">
 

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 export const useGetOrgs = () => {
     const { getAccessTokenSilently, user } = useAuth0()
 
-    const [orgs, setOrgs] = useState() 
+    const [orgs, setOrgs] = useState([]) 
 
     const getOrgs = async () => {
         let unsubscribe

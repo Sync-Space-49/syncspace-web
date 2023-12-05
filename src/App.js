@@ -13,11 +13,11 @@ import Nav from './Components/nav';
 import Dashboard from './Pages/dashboard';
 import Profile from './Pages/profile';
 import DashOrg from './Components/Orgs/dashorg';
-import SpecificOrg from './Components/Orgs/specificorg';
-import UpdateOrg from './Components/Orgs/updateorg';
+import SpecificOrg from './Pages/specificorg';
+import UpdateOrg from './Pages/updateorg';
 import { useAuth0 } from "@auth0/auth0-react";
-import SpecificBoard from './Components/Boards/specificboard';
-import UpdateBoard from './Components/Boards/updateboard';
+import SpecificBoard from './Pages/specificboard';
+import UpdateBoard from './Pages/updateboard';
 
 function App() {
   const { isAuthenticated } = useAuth0();

@@ -16,13 +16,12 @@ export const useUpdateOrg = () => {
         else if( newDescription === "none"){
             newDescription = description
         }
+        
         let token = await getAccessTokenSilently()
-
-        var url = `${serverAddress}/api/organizations/${orgId}`
     
         const options = {
           method: 'PUT',
-          url: url,          
+          url: `${serverAddress}/api/organizations/${orgId}`,          
           params: {
             description: newDescription,
             title: newTitle
@@ -41,5 +40,6 @@ export const useUpdateOrg = () => {
               console.error(error);
           });        
     }
+    
     return { updateOrg }
 }
