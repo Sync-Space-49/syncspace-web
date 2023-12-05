@@ -25,7 +25,6 @@ export const useCreateOrg = () => {
         .request(options)
         .then(function (res) {
             console.log("Created new organization")
-            // getOrgs()
         })
         .catch(function (error) {
             console.error(error);

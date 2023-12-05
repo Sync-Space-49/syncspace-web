@@ -13,6 +13,8 @@ import { useGetMembersOrg } from "../hooks/Orgs/useGetMembersOrg";
 import { useGetUsers } from "../hooks/useGetUsers";
 import { useGetBoards } from "../hooks/Boards/useGetBoards";
 import { useDeleteOrg } from "../hooks/Orgs/useDeleteOrg";
+import MembersOrg from "../Components/Orgs/membersorg";
+import Users from "../Components/users";
 
 const SpecificOrg = () => {
     const match = useMatch("/organization/:orgId")
@@ -32,7 +34,7 @@ const SpecificOrg = () => {
     
     const onSubmitCreateBoard = async (e) => {
         e.preventDefault()
-        createBoard({
+        await createBoard({
             title: titleCreateBoard,
             description: descCreateBoard
         })
@@ -116,7 +118,7 @@ const SpecificOrg = () => {
                 { membersOrg && membersOrg.length > 0 
                     ? (
                         membersOrg.map((member, i) => {
-                            return <p>{member.username} is a member of the organization</p>
+                            return <MembersOrg member={member} key={i} />
                         })
                     ) 
                     : (
@@ -129,7 +131,7 @@ const SpecificOrg = () => {
                 {users && users.length > 0
                     ? (
                         users.map((user, i) => {
-                            return <p>{user.username}</p>
+                            return <Users user={user} key={i}/>
                         })
                     )
                     : (

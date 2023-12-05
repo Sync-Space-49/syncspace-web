@@ -20,7 +20,7 @@ export const useUpdateBoard = () => {
 
         console.log(title, " ", newTitle, " ", description, " ", newDescription)
 
-        let token = getAccessTokenSilently()
+        let token = await getAccessTokenSilently()
     
         const options = {
           method: 'PUT',
