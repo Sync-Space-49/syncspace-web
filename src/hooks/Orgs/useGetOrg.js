@@ -9,11 +9,10 @@ export const useGetOrg = () => {
 
     const match = useMatch("/organization/:orgId")
     const orgId = match.params.orgId
-    // console.log(orgId)
 
-    const [org, setOrg] = useState() 
-    const [name, setName] = useState()
-    const [description, setDescription] = useState()
+    const [org, setOrg] = useState([]) 
+    const [name, setName] = useState("")
+    const [description, setDescription] = useState('')
 
     const getOrg = async () => {
         let unsubscribe

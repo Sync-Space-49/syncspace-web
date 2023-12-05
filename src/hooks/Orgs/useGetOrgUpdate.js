@@ -2,18 +2,17 @@ import { useAuth0 } from "@auth0/auth0-react"
 import { serverAddress } from "../..";
 import { useMatch } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"; 
 
 export const useGetOrgUpdate = () => {
     const { getAccessTokenSilently } = useAuth0() 
 
     const match = useMatch("/organization/:orgId/update")
     const orgId = match.params.orgId
-    // console.log(orgId)
 
-    const [org, setOrg] = useState() 
-    const [title, setTitle] = useState()
-    const [description, setDescription] = useState()
+    const [org, setOrg] = useState([]) 
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
 
     const getOrgUpdate = async () => {
         let unsubscribe
