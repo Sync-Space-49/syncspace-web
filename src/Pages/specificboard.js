@@ -7,6 +7,10 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useDeleteBoard } from "../hooks/Boards/useDeleteBoard";
 import { useGetBoard } from "../hooks/Boards/useGetBoard";
 import { useGetOrgBoard } from "../hooks/Orgs/useGetOrgBoard";
+import { useGetMembersBoard } from "../hooks/Boards/useGetMembersBoard";
+import { useGetMembersOrgBoard } from "../hooks/Orgs/useGetMembersOrgBoard";
+import MembersBoard from "../Components/Boards/membersboard";
+import MembersBoardOrg from "../Components/Boards/membersboardorg";
 
 const SpecificBoard = () => {
   const match = useMatch("/organization/:orgId/:boardId")
@@ -16,6 +20,8 @@ const SpecificBoard = () => {
   const { name} = useGetOrgBoard()
   const { deleteBoard } = useDeleteBoard()
   const { title } = useGetBoard()
+  const { membersBoard } = useGetMembersBoard()
+  const { membersOrgBoard } = useGetMembersOrgBoard()
 
   return (
     <div className="bg-test h-screen flex justify-center">
@@ -56,6 +62,30 @@ const SpecificBoard = () => {
             <li>assign people to board</li>
             <li>update roles/permissions for board</li>
             <li>toggle ai for this board??</li>
+
+            <br />
+
+            <h2>Board Members</h2>
+            { membersBoard && membersBoard.length > 0 
+              ? (
+                membersBoard.map((member, i) => {
+                  return <MembersBoard member={member} key={i}/>
+                })
+              )
+              : (
+                  <p>This org does not have any members</p>
+                )}
+            <br />
+            <h2>Org Members</h2>
+            { membersOrgBoard && membersOrgBoard.length > 0
+              ? (
+                membersOrgBoard.map((member, i) => {
+                  return <MembersBoardOrg member={member} key={i}/>
+                })
+              )
+              : (
+                <p>This section is loading</p>
+              )}
       </div>        
     </div>
   );
