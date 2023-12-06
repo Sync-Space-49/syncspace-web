@@ -5,10 +5,12 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-FROM node:alpine
+
+FROM node:18-alpine
 WORKDIR /app
 COPY --from=build /app/build ./build
-RUN npm install express
-COPY server.js .
+RUN npm install express nodemon
+COPY package*.json ./
+COPY server.js ./
 EXPOSE 3000
-CMD ["node", "server.js"]
+CMD ["npm", "run", "dev"]
