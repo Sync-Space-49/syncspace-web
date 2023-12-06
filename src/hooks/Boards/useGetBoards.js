@@ -28,8 +28,7 @@ export const useGetBoards = () => {
             .then(res => {
                 if (res.data){
                     setBoards(res.data) 
-                    console.log(res.data)
-                    console.log("Retreived ",boards.length," boards for this organization")
+                    console.log("Retreived boards for this organization")
                 }
                 else{
                     console.log("this org does not have any boards")

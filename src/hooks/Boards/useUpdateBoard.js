@@ -8,7 +8,7 @@ export const useUpdateBoard = () => {
 
     const match = useMatch("/organization/:orgId/:boardId/update")
     const orgId = match.params.orgId
-    const boardId = match.params.orgId
+    const boardId = match.params.boardId
 
     const updateBoard = async ({title, newTitle, description, newDescription}) => {
         if (newTitle === "none"){
@@ -37,7 +37,7 @@ export const useUpdateBoard = () => {
         await axios
           .request(options)
           .then(function (res) {
-            console.log(res)
+            console.log("board was updated")
           })
           .catch(function (error) {
               console.error(error);

@@ -22,14 +22,13 @@ export const useGetUsers = () => {
                 if(res.data) {
                     console.log("retreived users")
                     setUsers(res.data)
-                    console.log(res.data)
                 }
                 else {
                     console.log("there are no users ?")
                 }
             })
             .catch((error) => {
-                console.log(error.message)
+                console.log(error)
             })
 
         return () => unsubscribe()

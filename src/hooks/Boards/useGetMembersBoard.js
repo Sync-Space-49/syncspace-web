@@ -27,7 +27,6 @@ export const useGetMembersBoard = () => {
                 if(res.data) {
                     console.log("retreived board members")
                     setMembersBoard(res.data)
-                    console.log(res.data)
                 }
                 else {
                     console.log("this board does not have members")

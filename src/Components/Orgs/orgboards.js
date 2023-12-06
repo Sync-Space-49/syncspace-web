@@ -7,8 +7,6 @@ import {
 
 const OrgBoards = ({board, org}) => {
   const style = { color: "white" }
-  console.log(board)
-  console.log(org)
 
   return (
     <div>

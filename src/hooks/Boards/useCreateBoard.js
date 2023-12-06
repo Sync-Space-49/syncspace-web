@@ -29,9 +29,7 @@ export const useCreateBoard = () => {
         axios
           .request(options)
           .then(function (res) {
-            console.log(res)
             console.log("Created new board")
-            // getOrgOld()
           })
           .catch(function (error) {
               console.error(error);

@@ -28,7 +28,7 @@ export const useDeleteOrg = () => {
                 navigate("/")
             })
             .catch(error => {
-                console.error('Error deleting resource:', error);
+                console.error(error);
             });
     }
 

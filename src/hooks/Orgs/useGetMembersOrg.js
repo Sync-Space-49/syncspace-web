@@ -27,14 +27,13 @@ export const useGetMembersOrg = () => {
                 if (res.data) {
                     console.log("retreived org members")
                     setMembersOrg(res.data)
-                    console.log(res.data)
                 }
                 else {
                     console.log("this org does not have members?")
                 }
             })
             .catch((error) => {
-                console.log(error.message)
+                console.log(error)
             })
         
         return () => unsubscribe()
