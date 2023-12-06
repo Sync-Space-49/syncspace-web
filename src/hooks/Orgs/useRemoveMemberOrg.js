@@ -29,7 +29,7 @@ export const useRemoveMemberOrg = () => {
                 console.log("Member was removed");
             })
             .catch(error => {
-                console.error('Error deleting resource:', error);
+                console.error(error);
             });
     }
 

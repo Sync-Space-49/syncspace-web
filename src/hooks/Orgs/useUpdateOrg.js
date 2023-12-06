@@ -34,7 +34,7 @@ export const useUpdateOrg = () => {
         await axios
           .request(options)
           .then(function (res) {
-            console.log(res)
+            console.log("org was updated")
           })
           .catch(function (error) {
               console.error(error);

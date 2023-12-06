@@ -28,9 +28,7 @@ export const useGetOrgUpdate = () => {
           .then(res => {
             setOrg(res.data)
             setTitle(res.data.name)
-            setDescription(res.data.description)
-            console.log(org)
-            
+            setDescription(res.data.description)            
             if (res.data){
               console.log("Retreived organization")
             }
@@ -39,7 +37,7 @@ export const useGetOrgUpdate = () => {
             }
           })
           .catch((error) => {
-            console.log(error.message);
+            console.log(error);
           });
           return () => unsubscribe()
       }

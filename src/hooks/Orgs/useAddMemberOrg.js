@@ -10,8 +10,6 @@ export const useAddMemberOrg = () => {
     const orgId = match.params.orgId
 
     const addMemberOrg = async ({user_id}) => {
-        console.log("orgID: ", orgId, " userID: ", user_id)
-
         let token = await getAccessTokenSilently()
         var url = `${serverAddress}/api/organizations/${orgId}/members`
 

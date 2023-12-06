@@ -29,7 +29,7 @@ export const useGetOrgs = () => {
             }
           })
           .catch((error) => {
-            console.log(error.message);
+            console.log(error);
           });
           return () => unsubscribe()
       }

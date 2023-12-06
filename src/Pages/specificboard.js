@@ -6,26 +6,26 @@ import ToggleAI from '../Components/toggleAI';
 import { IoIosArrowBack } from "react-icons/io";
 import { useDeleteBoard } from "../hooks/Boards/useDeleteBoard";
 import { useGetBoard } from "../hooks/Boards/useGetBoard";
+import { useGetOrgBoard } from "../hooks/Orgs/useGetOrgBoard";
 
 const SpecificBoard = () => {
   const match = useMatch("/organization/:orgId/:boardId")
   const orgId = match.params.orgId
   const boardId = match.params.boardId
-  console.log(orgId)
-  console.log(boardId)
 
+  const { name} = useGetOrgBoard()
   const { deleteBoard } = useDeleteBoard()
-  const { board, title } = useGetBoard()
+  const { title } = useGetBoard()
 
   return (
     <div className="bg-test h-screen flex justify-center">
       <div className="flex flex-col p-6 bg-white h-fit w-4/5 rounded mt-20">
           <div className="flex space-x-1 mb-2">
               <Link className="p-1" to={`/organization/${orgId}`}><IoIosArrowBack /></Link>
-              <p>Return to {title}</p>
+              <p>Return to {name}</p>
           </div>
           <div className="text-dark text-2xl font-semibold ml-4 mt-4">
-              <h1>{board.title}</h1>
+              <h1>{title}</h1>
           </div> 
           <div className="flex space-x-12">
 
@@ -56,15 +56,6 @@ const SpecificBoard = () => {
             <li>assign people to board</li>
             <li>update roles/permissions for board</li>
             <li>toggle ai for this board??</li>
-          {/* { membersBoard && membersBoard.length > 0
-            ? (
-              membersBoard.map((member, i) => {
-                return <p>{member.username} is a member of this board</p>
-              })
-            )
-            : (
-              <p>This board does not have any members?????</p>
-            )} */}
       </div>        
     </div>
   );

@@ -19,7 +19,6 @@ import Users from "../Components/users";
 const SpecificOrg = () => {
     const match = useMatch("/organization/:orgId")
     const orgId = match.params.orgId
-    console.log(orgId)
 
     const {name, description} = useGetOrg()
     const { membersOrg } = useGetMembersOrg()

@@ -4,17 +4,18 @@ import { useMatch } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const useGetOrg = () => {
+export const useGetOrgBoard = () => {
     const { getAccessTokenSilently } = useAuth0() 
 
-    const match = useMatch("/organization/:orgId")
+    const match = useMatch("/organization/:orgId/:boardId")
     const orgId = match.params.orgId
+    const boardId = match.params.boardId
 
     const [org, setOrg] = useState([]) 
     const [name, setName] = useState("")
     const [description, setDescription] = useState('')
 
-    const getOrg = async () => {
+    const getOrgBoard = async () => {
         let unsubscribe
         let token = await getAccessTokenSilently();
 
@@ -43,7 +44,7 @@ export const useGetOrg = () => {
       }
 
     useEffect(() => {
-        getOrg()
+        getOrgBoard()
     }, [])
     
     return { org, name, description }
