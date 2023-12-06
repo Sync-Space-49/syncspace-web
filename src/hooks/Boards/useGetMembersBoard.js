@@ -18,7 +18,7 @@ export const useGetMembersBoard = () => {
 
         const options = {
             method: 'GET',
-            url: `${serverAddress}/api/organizations/${orgId}/${boardId}/members`,
+            url: `${serverAddress}/api/organizations/${orgId}/boards/${boardId}/members`,
             headers: { authorization: `Bearer ${token}`}
         }
 
