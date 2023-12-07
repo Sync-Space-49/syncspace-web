@@ -12,14 +12,14 @@ export const secret = process.env.REACT_APP_AUTH0_FRONTEND_CLIENT_SECRET;
 export const serverAudience = process.env.REACT_APP_SERVER_AUDIENCE;
 
 root.render(
-<Auth0Provider
+  <Auth0Provider
     domain={domain}
     clientId={clientId}
     authorizationParams={{
       redirect_uri: window.location.origin,
-      audience: serverAudience
+      audience: serverAudience,
     }}
   >
     <App />
-  </Auth0Provider>,
+  </Auth0Provider>
 );
