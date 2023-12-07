@@ -4,22 +4,22 @@ steps:
       - build
       - '--build-arg'
       - >-
-        'REACT_APP_AUTH0_FRONTEND_CLIENT_ID=${{ secrets.REACT_APP_AUTH0_FRONTEND_CLIENT_ID }}'
+        'REACT_APP_AUTH0_FRONTEND_CLIENT_ID=${REACT_APP_AUTH0_FRONTEND_CLIENT_ID}'
       - '--build-arg'
       - >-
-        'REACT_APP_AUTH0_FRONTEND_CLIENT_SECRET=${{ secrets.REACT_APP_AUTH0_FRONTEND_CLIENT_SECRET }}''
+        'REACT_APP_AUTH0_FRONTEND_CLIENT_SECRET=${REACT_APP_AUTH0_FRONTEND_CLIENT_SECRET}''
       - '--build-arg'
       - >-
-        'REACT_APP_AUTH0_DOMAIN=${{ secrets.REACT_APP_AUTH0_DOMAIN }}''
+        'REACT_APP_AUTH0_DOMAIN=${REACT_APP_AUTH0_DOMAIN}''
       - '--build-arg'
       - >-
-        'REACT_APP_SERVER_ADDRESS=${{ secrets.REACT_APP_SERVER_ADDRESS }}''
+        'REACT_APP_SERVER_ADDRESS=${REACT_APP_SERVER_ADDRESS}''
       - '--build-arg'
       - >-
-        'REACT_APP_SERVER_AUDIENCE=${{ secrets.REACT_APP_SERVER_AUDIENCE }}''
+        'REACT_APP_SERVER_AUDIENCE=${REACT_APP_SERVER_AUDIENCE}''
       - '--build-arg'
       - >-
-        'SERVER_PORT=${{ secrets.SERVER_PORT }}''
+        'SERVER_PORT=${SERVER_PORT}''
       - '--no-cache'
       - '-t'
       - >-
