@@ -1,10 +1,7 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  Link, useMatch, useNavigate
+  Link, useMatch
 } from "react-router-dom";
-import { serverAddress } from "../index";
-import axios from "axios";
 import OrgBoards from "../Components/Orgs/orgboards";
 import { IoIosArrowBack } from "react-icons/io";
 import { useGetOrg } from "../hooks/Orgs/useGetOrg";
@@ -54,8 +51,6 @@ const SpecificOrg = () => {
                     <div>
                         <div className="mt-4">
                             <h1 className="ml-4">Organization Settings</h1>
-                            {/* if you want me to change create board from a form to a button to another page let me know */}
-                            {/* <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={createBoard} data-name="orgs">Create Board</button> */}
                             <Link to={`/organization/${orgId}/update`} className="text-dark font-semibold rounded-md m-4 p-3 bg-primary">Edit Organization</Link>
                     
                         </div>
@@ -124,7 +119,7 @@ const SpecificOrg = () => {
                 {users && users.length > 0
                     ? (
                         users.map((user, i) => {
-                            return <Users user={user} key={i}/>
+                            return <Users users={user} key={i} isMember={membersOrg.includes(user,0)}/>
                         })
                     )
                     : (
