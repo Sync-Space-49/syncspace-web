@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IoIosArrowBack } from "react-icons/io";
 import {
   Link, useMatch, useNavigate
 } from "react-router-dom";
@@ -33,23 +34,38 @@ const UpdateBoard = () => {
   }
 
   return (
-    <div>
-      <h1>Update {title} Board</h1>
-      <form onSubmit={ onSubmit }>
-        <input 
-          placeholder={title}
-          id="title"
-          onChange={(e) => setNewTitle(e.target.value)}
-          />
-        <input 
-          placeholder={description}
-          id="description"
-          onChange={(e) => setNewDesc(e.target.value)}
-          />
-        <button type="submit" className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Submit</button>
-      </form>
-      <br />
-      <Link to={`/organization/${orgId}/${boardId}`} className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Cancel Edit</Link>
+    <div className="bg-test h-screen justify-center flex">
+      <div className="flex flex-col p-8 bg-white h-fit w-fit rounded mt-20 mb-20">
+      <div className="flex space-x-1 mb-2 mr-12">
+              <Link className="p-1" to={`/organization/${orgId}/${boardId}`}><IoIosArrowBack /></Link>
+              <p>Return to {title}</p>
+          </div>
+      
+      <div>
+      <h1 className="font-semibold ml-4 mt-4">Edit Board</h1>
+        <form onSubmit={ onSubmit }
+        className="flex flex-col ml-4 mt-4 space-y-4 w-fit">
+            <p>Title</p>
+            <input
+              className="border border-dark p-1 rounded" 
+              placeholder={title} 
+              id="title"
+              onChange={(e) => setNewTitle(e.target.value)}
+              />
+            <p>Description</p>
+            <input 
+              className="border border-dark p-1 rounded"
+              placeholder={description} 
+              id="description"
+              onChange={(e) => setNewDesc(e.target.value)}
+              />
+            <button type="submit" className="text-dark font-semibold rounded-md p-1 bg-primary">Update</button>
+        </form>
+        <br />
+      </div>
+      
+      </div>
+        
     </div>
   );
 };

@@ -185,41 +185,7 @@ const Profile = () => {
             </div>
             
             
-            <div>
-              <div>
-                <label htmlFor="username">Username: </label>
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  className="border mb-2"
-                  value={formData.username}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="email">Email: </label>
-                <input
-                  type="text"
-                  name="email"
-                  id="email"
-                  className="border mb-2"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="password">Password: </label>
-                <input
-                  type="text"
-                  name="password"
-                  id="password"
-                  className="border mb-2"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                />
-              </div>
-            </div>
+            
           </div>
         
           </div>
@@ -228,9 +194,43 @@ const Profile = () => {
               <div>
                   <h1
                     className="font-semibold text-lg"
-                  >Information</h1>
+                  >Account Information</h1>
               </div>
-                <p>bsdhbfs</p>
+              <div className="w-fit">
+              <div className="flex flex-col">
+                <label htmlFor="username">Username </label>
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  className="border border-dark rounded p-1 mb-2"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="email">Email </label>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  className="border border-dark rounded p-1 mb-2"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="password">Password </label>
+                <input
+                  type="text"
+                  name="password"
+                  id="password"
+                  className="border border-dark rounded p-1 mb-2"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
           </div>
 
           </div>

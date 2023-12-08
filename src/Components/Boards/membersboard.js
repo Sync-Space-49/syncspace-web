@@ -12,15 +12,23 @@ const MembersBoard = ({member}) => {
     }
 
     return (
-        <div>
-            <p>{member.username} is a member of this board
-                <button 
-                className="text-white font-semibold rounded-md m-4 p-2 bg-danger"
+        <div className="flex justify-between space-x-32">
+            <div>
+            <div>
+            <p>{member.username}</p>
+            </div>
+            <div>
+            <p className="text-sm">{member.name}</p>
+            </div>
+            </div>
+            <div>
+            <button 
+                className="text-white font-semibold rounded-md p-1 bg-danger"
                 onClick={ onRemoveMember }
                 >
-                Leave Board
+                Remove from Board
                 </button>
-            </p>
+            </div>
         </div>
     );
 };

@@ -1,15 +1,7 @@
 import React from "react";
-import { useRemoveMemberOrg } from "../../hooks/Orgs/useRemoveMemberOrg";
 
-const MembersOrg = ({member}) => {
-  const { removeMemberOrg } = useRemoveMemberOrg()
+const MembersOrgRoles = ({member}) => {
 
-  const onRemoveMember = (e) => {
-    e.preventDefault()
-    removeMemberOrg({
-      userID: member.user_id
-    })
-  }
   return (
     <div className="flex justify-between">
       <div>
@@ -23,7 +15,7 @@ const MembersOrg = ({member}) => {
       <div>
       <button 
           className="text-white font-semibold rounded-md ml-8 p-1 bg-danger"
-          onClick={ onRemoveMember }
+          onClick="#"
           >
           Remove User
         </button>
@@ -32,4 +24,4 @@ const MembersOrg = ({member}) => {
   );
 };
 
-export default MembersOrg;
+export default MembersOrgRoles;
