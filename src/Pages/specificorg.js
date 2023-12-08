@@ -126,6 +126,7 @@ const SpecificOrg = () => {
 
 
                 </div>
+
             </div>
 
             <div className="flex flex-col p-8 bg-white h-fit rounded mt-20 mb-20">

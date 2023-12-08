@@ -48,9 +48,11 @@ const SpecificBoard = () => {
               </div>
 
           </div>
+
       </div>  
 
       <div className="flex flex-col p-6 bg-white h-fit w-fit rounded mt-20 mb-20">
+
 
         <div>
           <h1 className="font-semibold text-lg mb-4">Manage Members</h1>
