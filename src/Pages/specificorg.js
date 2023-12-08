@@ -107,12 +107,6 @@ const SpecificOrg = () => {
                 
                 <br />
 
-                <p>need to implement on this page:</p>
-                    <li>assign people to org - in progress - can see users gotta assign to org</li>
-                    <li>update roles/permissions for org</li>
-
-                <br />
-
                 <h2>Org Members</h2>
                 { membersOrg && membersOrg.length > 0 
                     ? (

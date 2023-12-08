@@ -56,14 +56,6 @@ const SpecificBoard = () => {
               </div>
 
           </div>
-          <p>need to implement on this page:</p>
-            <li>update board - hook created, i think something wrong with postman</li>
-            <li>read members - hook is created, i think its a postman issue pretty sure i have the wrong url</li>
-            <li>assign people to board</li>
-            <li>update roles/permissions for board</li>
-            <li>toggle ai for this board??</li>
-
-            <br />
 
             <h2>Board Members</h2>
             { membersBoard && membersBoard.length > 0 
