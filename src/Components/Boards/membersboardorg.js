@@ -12,15 +12,23 @@ const MembersBoardOrg = ({member}) => {
     }
 
     return (
-        <div>
-            <p>{member.username} is a member of this organization
-                <button 
-                className="text-black font-semibold rounded-md m-4 p-2 bg-primary"
+        <div className="flex justify-between mb-4">
+            <div>
+            <div>
+            <p>{member.username}</p>
+            </div>
+            <div>
+            <p className="text-sm">{member.name}</p>
+            </div>
+            </div>
+            <div>
+            <button 
+                className="text-black font-semibold rounded-md p-1 bg-primary"
                 onClick={ onAddMember }
                 >
                 Add to Board
                 </button>
-            </p>
+            </div>
         </div>
     );
 };

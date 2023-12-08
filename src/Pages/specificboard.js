@@ -2,7 +2,6 @@ import React from "react";
 import {
   Link, useMatch
 } from "react-router-dom";
-import ToggleAI from '../Components/toggleAI';
 import { IoIosArrowBack } from "react-icons/io";
 import { useDeleteBoard } from "../hooks/Boards/useDeleteBoard";
 import { useGetBoard } from "../hooks/Boards/useGetBoard";
@@ -24,9 +23,9 @@ const SpecificBoard = () => {
   const { membersOrgBoard } = useGetMembersOrgBoard()
 
   return (
-    <div className="bg-test h-screen flex justify-center">
-      <div className="flex flex-col p-6 bg-white h-fit w-4/5 rounded mt-20">
-          <div className="flex space-x-1 mb-2">
+    <div className="bg-test h-screen flex justify-evenly">
+      <div className="flex flex-col p-6 bg-white h-fit w-fit rounded mt-20 mb-20">
+          <div className="flex space-x-1 mb-2 mr-6">
               <Link className="p-1" to={`/organization/${orgId}`}><IoIosArrowBack /></Link>
               <p>Return to {name}</p>
           </div>
@@ -37,27 +36,30 @@ const SpecificBoard = () => {
 
               <div>
                   <div className="mt-4 flex flex-col">
-                      <h1 className="ml-4">Board Settings</h1>
-                      <Link to={`/organization/${orgId}/${boardId}/update`} className="text-dark font-semibold rounded-md p-3 ml-4 mt-4 w-fit bg-primary">Edit Board</Link>
+                      <h1 className="ml-4 font-semibold">Board Settings</h1>
+                      <Link to={`/organization/${orgId}/${boardId}/update`} className="text-dark font-semibold rounded-md p-1 ml-4 mt-4 text-center bg-primary">Edit Board</Link>
               
                   </div>
 
                   <div className="mt-4">
-                      <h1 className="ml-4">Danger Zone</h1>
+                      <h1 className="ml-4 font-semibold">Danger Zone</h1>
                       <button className="text-white font-semibold rounded-md m-4 p-2 bg-danger" onClick={deleteBoard} data-name="orgs">Delete Board</button>
                   </div>
               </div>
 
-              <div className="mt-4">
-                <h1 className="font-semibold">Toggle AI Creation</h1>
-                <div className="mt-4">
-                <ToggleAI />
-                </div>
-              </div>
-
           </div>
 
-            <h2>Board Members</h2>
+      </div>  
+
+      <div className="flex flex-col p-6 bg-white h-fit w-fit rounded mt-20 mb-20">
+
+
+        <div>
+          <h1 className="font-semibold text-lg mb-4">Manage Members</h1>
+        </div>
+
+      <div>
+              <h2 className="font-semibold mb-2">Board Members</h2>
             { membersBoard && membersBoard.length > 0 
               ? (
                 membersBoard.map((member, i) => {
@@ -65,10 +67,9 @@ const SpecificBoard = () => {
                 })
               )
               : (
-                  <p>This org does not have any members</p>
+                  <p>This organization does not have any members.</p>
                 )}
-            <br />
-            <h2>Org Members</h2>
+            <h2 className="font-semibold mb-2">Organization Members</h2>
             { membersOrgBoard && membersOrgBoard.length > 0
               ? (
                 membersOrgBoard.map((member, i) => {
@@ -78,7 +79,8 @@ const SpecificBoard = () => {
               : (
                 <p>This section is loading</p>
               )}
-      </div>        
+              </div>
+      </div>      
     </div>
   );
 };
