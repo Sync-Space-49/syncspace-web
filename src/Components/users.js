@@ -12,15 +12,23 @@ const Users = ({user}) => {
     }
 
     return (
-        <div>
-            <p>{user.username} is a user of SyncSpace
-                <button 
-                    className="text-black font-semibold rounded-md m-4 p-2 bg-primary"
+        <div className="flex justify-between ">
+            <div>
+            <div>
+            <p>{user.username}</p>
+            </div>
+            <div>
+            <p className="text-sm">{user.name}</p>
+            </div>
+            </div>
+            <div>
+            <button 
+                    className="text-black font-semibold rounded-md ml-8 p-1 bg-primary"
                     onClick={ onAddMember }
                     >
-                    Add to Organization
-                </button>
-            </p>
+                    Add User
+            </button>
+            </div>
         </div>
     );
 };

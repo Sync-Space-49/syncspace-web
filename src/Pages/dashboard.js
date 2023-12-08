@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import SYNC from './images/SyncSpace-mint.png'
+import {
+  Link, useMatch, useNavigate
+} from "react-router-dom";
 import DashOrg from '../Components/Orgs/dashorg';
 import { useCreateOrg } from "../hooks/Orgs/useCreateOrg";
 import { useGetOrgs } from "../hooks/Orgs/useGetOrgs";
@@ -62,41 +65,21 @@ function Dashboard() {
             <div className="mb-96">
 
             <div className="w-full h-8 flex items-center p-6 border border-dark border-l-0 border-r-0 hover:border-slate-400 hover:font-semibold">
-              <button className="text-white hover:text-primary" onClick={()=>{
-                dashShow(show);
-                orgShow(org);
-                settingShow(setting);
-                }}>Dashboard</button>
+              <button className="text-white hover:text-primary">
+              <Link className="p-1" to={`/dashboard`}>Dashboard</Link>
+                </button>
             </div>
 
             <div className="w-full h-8 flex items-center p-6 border border-dark border-l-0 border-r-0 hover:border-slate-400 hover:font-semibold">
-              <button className="text-white hover:text-primary" onClick={()=>{
-                dashShow(!show);
-                orgShow(!org);
-                settingShow(setting);
-                }}>Organizations</button>
-            </div>
-
-            <div className="w-full h-8 flex items-center p-6 border border-dark border-l-0 border-r-0 hover:border-slate-400 hover:font-semibold">
-              <button className="text-white hover:text-primary" onClick={()=>{
-                dashShow(!show);
-                orgShow(org);
-                settingShow(!setting);
-                }}>Profile</button>
-            </div>
-
-            <div className="w-full h-8 flex items-center p-6 border border-dark border-l-0 border-r-0 hover:border-slate-400 hover:font-semibold">
-              <button className="text-white hover:text-primary" onClick={()=>{
-                dashShow(!show);
-                orgShow(org);
-                settingShow(!setting);
-                }}>Recent</button>
+              <button className="text-white hover:text-primary">
+              <Link className="p-1" to={`/profile`}>Profile</Link>
+              </button>
             </div>
             
           </div>
           
           {/* Log out */}
-          <div className="flex items-end w-full h-3/5 pb-4 pl-2">
+          <div className="flex items-end w-full mt-20 pb-4 pl-2">
             <button className="text-dark font-semibold rounded-md mt-4 ml-4 p-2 bg-primary" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
               Log Out
             </button>
@@ -120,31 +103,13 @@ function Dashboard() {
 
           {/* Dashboard */}
           <div>
-            {
-              show?<div className="p-6 flex flex-col space-y-12">
+            
+              <div className="p-6 flex flex-col space-y-12">
 
                 <div className="space-y-2">
                   <h1 className="text-dark text-3xl">Welcome {user.name}!</h1>
                   <p className="text-dark">View and manage your organizations below.</p>
                 </div>
-    
-                <form onSubmit={ onSubmitCreate }>
-                  <input 
-                    type="text" 
-                    placeholder="Name" 
-                    required 
-                    id="title-create-org"
-                    onChange={(e) => setTitleCreateOrg(e.target.value)} 
-                    />
-                  <input 
-                    type="text" 
-                    placeholder="Description" 
-                    required 
-                    id="desc-create-org"
-                    onChange={(e) => setDescCreateOrg(e.target.value)}
-                    />
-                  <button type="submit" className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Create Organization</button>
-                </form>
 
                 <div className="flex flex-wrap">
 
@@ -160,27 +125,32 @@ function Dashboard() {
 
                 {/* <button className="text-dark font-semibold rounded-md p-2 w-60 bg-primary" onClick={createOrg} data-name="orgs">+ Create New Organization</button> */}
 
+              <div className="flex flex-col">
+              <h1 className="text-xl font-semibold mt-4 mb-4">Create New Organization</h1>
+                <form onSubmit={ onSubmitCreate }
+                className="flex flex-col space-y-4 w-fit">
+                  <input 
+                    className="border border-dark rounded p-1"
+                    type="text" 
+                    placeholder="Name" 
+                    required 
+                    id="title-create-org"
+                    onChange={(e) => setTitleCreateOrg(e.target.value)} 
+                    />
+                  <input 
+                    className="border border-dark rounded p-1"
+                    type="text" 
+                    placeholder="Description" 
+                    required 
+                    id="desc-create-org"
+                    onChange={(e) => setDescCreateOrg(e.target.value)}
+                    />
+                  <button type="submit" className="text-dark font-semibold rounded-md p-1 bg-primary">Submit</button>
+                </form>
+              </div>
 
-              {/* Org Showcase */}
-                <div>
-                </div>
-
-              </div>:null
-            }
-          </div>
-
-          {/* Organizations */}
-          <div>
-            {
-              org?<p>testing</p>:null
-            }
-          </div>
-
-          {/* Settings */}
-          <div>
-            {
-              setting?<p>this is differentx</p>:null
-            }
+              </div>
+            
           </div>
 
         </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import WAVE from './images/svgviewer-png-output.png'
 import SYNCFOOTER from './images/Sync-Footer.png'
 import APPSTORE from './images/download-on-the-app-store-apple-logo-svgrepo-com.svg'
@@ -15,53 +16,41 @@ function Landing() {
         }
       }
 
+    const { loginWithRedirect } = useAuth0();
+
   return (
 
     // Container
     <div>
 
-        
-        {/* <div className="bg-dark h-20 w-full flex justify-between">
-        <div className="flex items-center p-4 ml-6">
-            <img style={{width: "60px", height: "60px"}} src={SYNC}/>
-            <p className='p-3 items-center text-white font-semibold text-xl'>SyncSpace</p>
-        </div>
-        <div className="flex items-center mr-6">
-            {/* log in */}
-            {/* <button className="text-white">Log In</button> */}
-            {/* sign up */}
-            {/* <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Get Started</button> */}
-        {/* </div> */}
-        {/* // </div> */} 
-
         <div className="bg-dark h-20"></div>
 
         <div>
             {/* Body */}
-            <div style={{ backgroundImage: `url(${WAVE})`, backgroundRepeat: 'no-repeat', backgroundSize: 'contain'}} className="flex justify-between pb-20">
-            <div>
+            <div style={{ backgroundImage: `url(${WAVE})`, backgroundRepeat: 'no-repeat', backgroundSize: 'contain'}} className="flex justify-between ">
+            <div className="ml-20">
                     <h1 className="font-semibold text-3xl pl-56 text-white">Elevate Your Workflow</h1>
                     <p className="text-white pl-56 pt-5">Sync your ideas and empower your team's creativity.</p>
                     <p className="text-white pl-56 pt-5">Get started today for free!</p>
                     <div className="pl-52">
                     <div className="flex">
                         <div className="pt-5">
-                        <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary">Sign Up for Web</button>
+                        <button className="text-dark font-semibold rounded-md m-4 p-2 bg-primary" onClick={() => loginWithRedirect()}>Sign Up for Web</button>
                         </div>
                         <div>
                             <img className="pb-20" style={{width: "120px", height: "200px"}} src={APPSTORE}/>
                         </div>
                     </div>
-                    <p className="text-dark text-3xl pt-20">Visualize Your Goals and</p>
-                    <p className="font-semibold text-4xl pt-5">Enhance with AI</p>
+                    <p className="text-dark text-3xl pt-20 ml-4">Visualize Your Goals and</p>
+                    <p className="font-semibold text-4xl pt-5 ml-4">Enhance with AI</p>
                     </div>
             </div>
-            <div className="pr-96">
+            <div className="mr-80">
                 <img style={{height: "550px"}} src={SYNCMOBILE}/>
             </div>
             </div>
 
-            <div className="bg-landing pb-20">
+            {/* <div className="bg-landing pb-20">
                 <div className="flex justify-center text-dark">
                     <h2 className="text-3xl font-semibold pt-20">Optimize Team Productivity and Collaboration</h2>
                 </div>
@@ -94,11 +83,11 @@ function Landing() {
                         </div>
                     </div>
 
-                </div>
+                </div> */}
 
-                </div>
+                {/* </div> */}
 
-            </div>
+            {/* </div> */}
 
         </div>
 
@@ -109,9 +98,10 @@ function Landing() {
                     <p>ddhdh</p>
                 </div>
             </div> */}
-            <div style={{ backgroundImage: `url(${SYNCFOOTER})`, backgroundRepeat: 'no-repeat', backgroundSize: 'contain'}} className="flex pb-20 w-full">
+            <div style={{ backgroundImage: `url(${SYNCFOOTER})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}} className="pb-64">
             
             </div>
+            {/* <div className="bg-dark h-20"></div> */}
             
         </div>
 
