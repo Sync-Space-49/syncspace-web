@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import SYNC from './images/SyncSpace-mint.png'
 import {
-  Link, useMatch, useNavigate
+  Link
 } from "react-router-dom";
 import DashOrg from '../Components/Orgs/dashorg';
 import { useCreateOrg } from "../hooks/Orgs/useCreateOrg";
@@ -19,10 +19,6 @@ function Dashboard() {
 
   const { logout } = useAuth0();
 
-  const [show, dashShow] = useState(true)
-  const [org, orgShow] = useState(false)
-  const [setting, settingShow] = useState(false)
-
   const { user } = useAuth0();
 
   const onSubmitCreate = async (e) => {
@@ -33,6 +29,7 @@ function Dashboard() {
     })
     document.getElementById('title-create-org').value = ''
     document.getElementById('desc-create-org').value = ''
+    alert("An organization has been made \nPlease refresh the page")
   }
 
   return (
