@@ -34,6 +34,7 @@ const UpdateOrg = () => {
       })
       document.getElementById('title').value = ''
       document.getElementById('description').value = ''
+      alert('The organization has been updated \nPlease refresh the page after you are redirected')
       navigate(`/organization/${orgId}`)
     }
 

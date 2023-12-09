@@ -18,9 +18,14 @@ const SpecificBoard = () => {
 
   const { name} = useGetOrgBoard()
   const { deleteBoard } = useDeleteBoard()
-  const { title } = useGetBoard()
+  const { title, description } = useGetBoard()
   const { membersBoard } = useGetMembersBoard()
   const { membersOrgBoard } = useGetMembersOrgBoard()
+
+  const membersBoardIDs = []
+  membersBoard.forEach((member,i) => {
+    membersBoardIDs.push(member.user_id)
+  })
 
   return (
     <div className="bg-test h-screen flex justify-evenly">
@@ -31,6 +36,7 @@ const SpecificBoard = () => {
           </div>
           <div className="text-dark text-2xl font-semibold ml-4 mt-4">
               <h1>{title}</h1>
+              <h2>{description}</h2>
           </div> 
           <div className="flex space-x-12">
 
@@ -73,7 +79,7 @@ const SpecificBoard = () => {
             { membersOrgBoard && membersOrgBoard.length > 0
               ? (
                 membersOrgBoard.map((member, i) => {
-                  return <MembersBoardOrg member={member} key={i}/>
+                  return <MembersBoardOrg member={member} key={i} isMember={membersBoardIDs.includes(member.user_id)}/>
                 })
               )
               : (
