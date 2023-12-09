@@ -4,31 +4,32 @@ import { serverAddress } from "../.."
 import { useMatch } from "react-router-dom"
 import axios from "axios"
 
-export const useGetMembersOrgRoles = () => {
+export const useGetRolesOrg = () => {
     const { getAccessTokenSilently } = useAuth0()
 
-    const [membersOrg, setMembersOrg] = useState([])
+    const [rolesOrg, setRolesOrg] = useState([])
 
     const match = useMatch("/organization/:orgId/roles")
     const orgId = match.params.orgId
 
-    const getMembersOrgRoles = async () => {
+    const getRolesOrg = async () => {
         let token = await getAccessTokenSilently()
 
         const options = {
             method: 'GET',
-            url: `${serverAddress}/api/organizations/${orgId}/members`,
+            url: `${serverAddress}/api/organizations/${orgId}/roles`,
             headers: { authorization: `Bearer ${token}`}
         }
 
         await axios(options)
             .then(res => {
                 if (res.data) {
-                    console.log("retreived org members")
-                    setMembersOrg(res.data)
+                    console.log("retreived org roles")
+                    console.log(res.data)
+                    setRolesOrg(res.data)
                 }
                 else {
-                    console.log("this org does not have members?")
+                    console.log("this org does not have any roles")
                 }
             })
             .catch((error) => {
@@ -37,8 +38,8 @@ export const useGetMembersOrgRoles = () => {
     }
 
     useEffect(() => {
-        getMembersOrgRoles()
+        getRolesOrg()
     }, [])
     
-    return { membersOrg }
+    return { rolesOrg }
 }
