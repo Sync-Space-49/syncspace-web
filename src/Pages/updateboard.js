@@ -30,6 +30,7 @@ const UpdateBoard = () => {
     })
     document.getElementById('title').value = ''
     document.getElementById('description').value = ''
+    alert('The board has been updated \nPlease refresh the page after you are redirected')
     navigate(`/organization/${orgId}/${boardId}`)
   }
 
