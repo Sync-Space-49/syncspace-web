@@ -4,18 +4,19 @@ import { useDeleteRole } from '../../hooks/Orgs/useDeleteRole';
 const OrgRoles = ({role}) => {
 
     const { deleteRole } = useDeleteRole();
-
-    console.log(role)
-
+    const roleName = role.name
+    const roleSplit = roleName.split(":")
+    let slicedName
+    if (roleSplit.length >= 3) {
+        slicedName = roleSplit.slice(2).join(':');
+        console.log(slicedName)
+    }
   return (
     <div className="flex justify-between">
       <div>
       <div>
-            <p>{role.name}</p>
-            </div>
-            <div>
-            <p className="text-sm">{role.description}</p>
-            </div>
+        <p><i>Role Name:</i> {slicedName}</p>
+      </div>
       </div>
       <div>
       <button 
